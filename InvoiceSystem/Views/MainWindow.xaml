@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InvoiceSystem.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid x:Name="MainMenuStart" Margin="10,0,10,10">
+        Title="InvoiceManager" Height="472.078" Width="576.948">
+
+    <Grid x:Name="MainMenuStart" Margin="10,0,10,10" Background="#FF0F1476">
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -14,56 +16,99 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+        <Menu Grid.ColumnSpan="3">
+            <MenuItem Header="Options">
+                <MenuItem Header="Update"></MenuItem>
+                <MenuItem Header="Search"></MenuItem>
+            </MenuItem>
+        </Menu>
 
         <TextBlock Grid.Column="1"
-                   Grid.Row="0"
+                   Grid.Row="1"
                    VerticalAlignment="Center" 
                    HorizontalAlignment="Center"
-                   x:Name="Title" 
+                   x:Name="Title" FontSize="28" FontWeight="Bold" TextDecorations="Underline" 
                    >            
                    Tech Invoice Manager
         </TextBlock>
 
-
-        <Button x:Name="btnNewInvoice" 
-                Grid.Column="1" 
-                Grid.Row="1" 
-                Margin="10" 
-                Click="btnNewInvoice_Click" 
-                Content="Create New Invoice"
-                ToolTip="Creates a new Invoice" FontSize="22" FontFamily="Lucida Sans" FontWeight="Bold"
-                />
-
-        <Button x:Name="btnEditInvoice"
+     
+            <Button x:Name="btnNewInvoice" 
                 Grid.Column="1"
                 Grid.Row="2"
                 Margin="10" 
-                Click="btnEditInvoice_Click"
-                Content="Edit Invoice"
-                ToolTip="Edits an Invoice Currently in Database" FontSize="22" FontFamily="Lucida Sans" FontWeight="Bold"
-                />
-        <Button x:Name="btnDeleteInvoice"
+                Click="btnNewInvoice_Click" 
+                Content="Create New Invoice"
+                ToolTip="Creates a new Invoice" FontSize="22" FontFamily="Lucida Sans" FontWeight="Bold" BorderBrush="#FF0A0707"
+                >
+
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FF4EAC33" Offset="0.588"/>
+                        <GradientStop Color="#FF009759" Offset="0.74"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+          
+        <Button x:Name="btnEditInvoice"
                 Grid.Column="1"
                 Grid.Row="3"
                 Margin="10" 
                 Click="btnEditInvoice_Click"
+                Content="Edit Invoice"
+                ToolTip="Edits an Invoice Currently in Database" FontSize="22" FontFamily="Lucida Sans" FontWeight="Bold" BorderBrush="#FF0A0707"
+                >
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#FF4EAC33" Offset="0.588"/>
+                    <GradientStop Color="#FF009759" Offset="0.74"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="btnDeleteInvoice"
+                Grid.Column="1"
+                Grid.Row="4"
+                Margin="10" 
+                Click="btnEditInvoice_Click"
                 Content="Delete Invoice"
-                ToolTip="Deletes an Invoice Currently in Database" FontSize="22" FontFamily="Lucida Sans" FontWeight="Bold"
-                />
+                ToolTip="Deletes an Invoice Currently in Database" FontSize="22" FontFamily="Lucida Sans" FontWeight="Bold" BorderBrush="#FF0A0707"
+                >
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#FF4EAC33" Offset="0.588"/>
+                    <GradientStop Color="#FF009759" Offset="0.74"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
 
         <Button x:Name="btnExit" 
                 Grid.Column="1" 
-                Grid.Row="4" 
+                Grid.Row="5" 
                 Margin="10" 
                 Click="btnExit_Click" 
                 Content="Exit"
-                ToolTip="Exit Program" FontSize="22" FontFamily="Lucida Sans" FontWeight="Bold"
-                />
+                ToolTip="Exit Program" FontSize="22" FontFamily="Lucida Sans" FontWeight="Bold" BorderBrush="#FF0A0707"
+                >
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#FFE80F0F" Offset="0.554"/>
+                    <GradientStop Color="#FF424697" Offset="0.92"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
     </Grid>
+
+
 </Window>
