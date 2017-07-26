@@ -1,0 +1,36 @@
+C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem\bin\Debug\InvoiceSystem.exe.config
+C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem\bin\Debug\InvoiceSystem.exe
+C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem\bin\Debug\InvoiceSystem.pdb
+C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem\obj\Debug\InvoiceSystem.csprojResolveAssemblyReference.cache
+C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem\obj\Debug\Views\EditWindow.g.cs
+C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem\obj\Debug\Views\MainWindow.g.cs
+C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem\obj\Debug\Views\SearchWindow.g.cs
+C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem\obj\Debug\App.g.cs
+C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem\obj\Debug\InvoiceSystem_MarkupCompile.cache
+C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem\obj\Debug\InvoiceSystem_MarkupCompile.lref
+C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem\obj\Debug\Views\EditWindow.baml
+C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem\obj\Debug\Views\MainWindow.baml
+C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem\obj\Debug\Views\SearchWindow.baml
+C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem\obj\Debug\InvoiceSystem.g.resources
+C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem\obj\Debug\InvoiceSystem.Properties.Resources.resources
+C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem\obj\Debug\InvoiceSystem.csproj.GenerateResource.Cache
+C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem\obj\Debug\InvoiceSystem.exe
+C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem\obj\Debug\InvoiceSystem.pdb
+C:\Users\mitch\Source\Repos\InvoiceSystem\InvoiceSystem\bin\Debug\InvoiceSystem.exe.config
+C:\Users\mitch\Source\Repos\InvoiceSystem\InvoiceSystem\bin\Debug\InvoiceSystem.exe
+C:\Users\mitch\Source\Repos\InvoiceSystem\InvoiceSystem\bin\Debug\InvoiceSystem.pdb
+C:\Users\mitch\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\InvoiceSystem.csprojResolveAssemblyReference.cache
+C:\Users\mitch\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\Views\EditWindow.g.cs
+C:\Users\mitch\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\Views\MainWindow.g.cs
+C:\Users\mitch\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\Views\SearchWindow.g.cs
+C:\Users\mitch\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\App.g.cs
+C:\Users\mitch\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\InvoiceSystem_MarkupCompile.cache
+C:\Users\mitch\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\InvoiceSystem_MarkupCompile.lref
+C:\Users\mitch\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\Views\EditWindow.baml
+C:\Users\mitch\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\Views\MainWindow.baml
+C:\Users\mitch\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\Views\SearchWindow.baml
+C:\Users\mitch\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\InvoiceSystem.g.resources
+C:\Users\mitch\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\InvoiceSystem.Properties.Resources.resources
+C:\Users\mitch\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\InvoiceSystem.csproj.GenerateResource.Cache
+C:\Users\mitch\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\InvoiceSystem.exe
+C:\Users\mitch\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\InvoiceSystem.pdb
