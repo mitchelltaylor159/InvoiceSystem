@@ -4,15 +4,15 @@
 winexe
 C#
 .cs
-C:\Users\Eric\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\
+C:\Users\Eric\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Release\
 InvoiceSystem
 none
 false
-DEBUG;TRACE
+TRACE
 C:\Users\Eric\Source\Repos\InvoiceSystem\InvoiceSystem\App.xaml
 31929571527
 
-19-1946548319
+15620357244
 13738642453
 Views\EditWindow.xaml;Views\MainWindow.xaml;Views\SearchWindow.xaml;
 
