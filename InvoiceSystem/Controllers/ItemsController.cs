@@ -30,21 +30,6 @@ namespace InvoiceSystem.Controllers
 
 
 
-        /// <summary>
-        /// Saves the active Item object to the DB.
-        /// </summary>
-        public void SaveActiveItem()
-        {
-            try
-            {
-                // Call function from Item
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
 
         /// <summary>
         /// Loads all of the Items into the class variable, Items.
@@ -54,6 +39,7 @@ namespace InvoiceSystem.Controllers
             try
             {
                 // Call function from Item
+                this.Items = Item.GetItems();
             }
             catch (Exception ex)
             {
@@ -61,5 +47,57 @@ namespace InvoiceSystem.Controllers
                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+
+        /// <summary>
+        /// Saves the active Item object to the DB.
+        /// </summary>
+        public void SaveActiveItem()
+        {
+            try
+            {
+                // Call function from Item
+                this.ActiveItem.Save();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Updates the active Item object in the DB.
+        /// </summary>
+        public void UpdateActiveItem()
+        {
+            try
+            {
+                // Call function from Item
+                this.ActiveItem.Update();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Deletes the active Item object from the DB.
+        /// </summary>
+        public void DeleteActiveItem()
+        {
+            try
+            {
+                // Call function from Item
+                this.ActiveItem.Delete();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
     }
 }
