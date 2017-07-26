@@ -24,6 +24,17 @@ namespace InvoiceSystem.Models
         /// </summary>
         public int Quantity { get; set; }
 
+        /// <summary>
+        /// The line number that the item is on.
+        /// </summary>
+        public int LineNumber { get; set; }
+
+        /// <summary>
+        /// Static access to the Database
+        /// </summary>
+        public static Database DB = new Database();
+
+
 
         /// <summary>
         /// The default constructor.
@@ -39,13 +50,15 @@ namespace InvoiceSystem.Models
         /// <param name="invoiceID">The DB Foreign Key for the Invoice.</param>
         /// <param name="itemID">The DB Foreign Key for the Item.</param>
         /// <param name="quantity">The quantity of the item added to an individual invoice.</param>
-        public InvoiceItem(int invoiceID, int itemID, int quantity)
+        /// <param name="lineNumber">The line number that the item is on.</param>
+        public InvoiceItem(int invoiceID, int itemID, int quantity, int lineNumber)
         {
             try
             {
                 this.InvoiceID = invoiceID;
                 this.ItemID = itemID;
                 this.Quantity = quantity;
+                this.LineNumber = lineNumber;
             }
             catch (Exception ex)
             {

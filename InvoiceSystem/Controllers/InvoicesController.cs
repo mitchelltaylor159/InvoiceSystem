@@ -37,7 +37,8 @@ namespace InvoiceSystem.Controllers
         {
             try
             {
-                // Call function from Invoice
+                // Call function from Invoice model (the model function determines whether to run an INSERT or an UPDATE)
+                this.ActiveInvoice.Save();
             }
             catch (Exception ex)
             {
@@ -54,6 +55,7 @@ namespace InvoiceSystem.Controllers
             try
             {
                 // Call function from Invoice
+                this.Invoices = Invoice.GetInvoices();
             }
             catch (Exception ex)
             {
@@ -64,7 +66,10 @@ namespace InvoiceSystem.Controllers
 
         public IEnumerable<Invoice> SearchInvoices()
         {
-            // Replace with code (LINQ) to search.
+            // Add arguments to the method declaration (overload for different search terms)
+            // i.e. SearchInvoices(DateTime invoiceDate)  then another method declaration: SearchInvoices(int InvoiceID)
+
+            // Replace with code (LINQ) to search this.Invoices and return.
             return new List<Invoice>();
         }
     }

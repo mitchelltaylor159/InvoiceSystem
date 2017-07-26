@@ -30,6 +30,11 @@ namespace InvoiceSystem.Models
         public decimal ItemPrice { get; set; }
 
         /// <summary>
+        /// Static access to the Database
+        /// </summary>
+        public static Database DB = new Database();
+
+        /// <summary>
         /// The default constructor.
         /// </summary>
         public Item()
