@@ -1,0 +1,5 @@
+.vs/
+InvoiceSystem/obj/
+*.exe
+*.exe.config
+*.pdb
