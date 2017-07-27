@@ -19,13 +19,31 @@
             <ComboBoxItem>Delete Invoice</ComboBoxItem>
         </ComboBox>
         <Canvas x:Name="CreateInvoiceCanvas" Height="100" Canvas.Left="29" Canvas.Top="97" Width="256">
+            <Canvas.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#FFB0A0A0" Offset="1"/>
+                </LinearGradientBrush>
+            </Canvas.Background>
             <Button Content="Create" Canvas.Left="171" Canvas.Top="70" Width="75"/>
             <Canvas x:Name="CreateInvoiceCanvas_Copy" Height="100" Canvas.Left="271" Width="256">
+                <Canvas.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="0"/>
+                        <GradientStop Color="#FFFF4444" Offset="1"/>
+                    </LinearGradientBrush>
+                </Canvas.Background>
                 <Button Content="Delete" Canvas.Left="157" Canvas.Top="42" Width="75"/>
                 <ComboBox Canvas.Left="21" Canvas.Top="40" Width="107"/>
             </Canvas>
         </Canvas>
         <Canvas x:Name="EditInvoiceCanvas" Height="100" Canvas.Left="29" Canvas.Top="197" Width="256">
+            <Canvas.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#FF25F325" Offset="1"/>
+                </LinearGradientBrush>
+            </Canvas.Background>
             <Button Content="Save" Canvas.Left="171" Canvas.Top="70" Width="75"/>
         </Canvas>
 
