@@ -30,22 +30,6 @@ namespace InvoiceSystem.Controllers
 
 
 
-        /// <summary>
-        /// Saves the active Invoice object to the DB.
-        /// </summary>
-        public void SaveActiveInvoice()
-        {
-            try
-            {
-                // Call function from Invoice model (the model function determines whether to run an INSERT or an UPDATE)
-                this.ActiveInvoice.Save();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
 
         /// <summary>
         /// Loads all of the invoices into the class variable, Invoices.
@@ -64,6 +48,10 @@ namespace InvoiceSystem.Controllers
             }
         }
 
+        /// <summary>
+        /// Search the loaded invoices, return a subset.
+        /// </summary>
+        /// <returns>A subset of all of the loaded invoices that match the given criteria.</returns>
         public IEnumerable<Invoice> SearchInvoices()
         {
             // Add arguments to the method declaration (overload for different search terms)
@@ -71,6 +59,58 @@ namespace InvoiceSystem.Controllers
 
             // Replace with code (LINQ) to search this.Invoices and return.
             return new List<Invoice>();
+        }
+
+
+        /// <summary>
+        /// Saves the active Invoice object to the DB.
+        /// </summary>
+        public void SaveActiveInvoice()
+        {
+            try
+            {
+                // Call function from Item
+                this.ActiveInvoice.Save();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Updates the active Invoice object in the DB.
+        /// </summary>
+        public void UpdateActiveInvoice()
+        {
+            try
+            {
+                // Call function from Item
+                this.ActiveInvoice.Update();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Deletes the active Invoice object from the DB.
+        /// </summary>
+        public void DeleteActiveInvoice()
+        {
+            try
+            {
+                // Call function from Invoice
+                this.ActiveInvoice.Delete();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
     }
 }

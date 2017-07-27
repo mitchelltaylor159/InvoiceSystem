@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,6 +26,51 @@ namespace InvoiceSystem.Views
         {
             InitializeComponent();
             this.Controller = controller;
+        }
+
+        private void Cancel(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
+        }
+
+        private void LoadInvoice(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Validate
+                // Set the ActiveInvoice
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
+        }
+
+        private void Search(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                // Validate
+                // Get the filters
+                // Instantiate list as a sub-list of the controller's list using LINQ
+                // Refresh the ListBox
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
         }
     }
 }

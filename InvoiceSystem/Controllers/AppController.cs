@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace InvoiceSystem.Controllers
 {
@@ -48,15 +50,24 @@ namespace InvoiceSystem.Controllers
         /// </summary>
         public AppController()
         {
-            // Initialize controllers
-            this.Invoices = new InvoicesController();
-            this.InvoiceItems = new InvoiceItemsController();
-            this.Items = new ItemsController();
+            try
+            {
+                // Initialize controllers
+                this.Invoices = new InvoicesController();
+                this.InvoiceItems = new InvoiceItemsController();
+                this.Items = new ItemsController();
             
-            // Initialize view
-            this.MainView = new MainWindow(this);
-            App.Current.MainWindow = this.MainView;
-            MainView.Show();
+                // Initialize view
+                this.MainView = new MainWindow(this);
+                App.Current.MainWindow = this.MainView;
+                MainView.Show();
+            }
+            catch (Exception ex)
+            {
+                HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
+
         }
 
         /// <summary>
@@ -64,8 +75,16 @@ namespace InvoiceSystem.Controllers
         /// </summary>
         public void Search()
         {
-            this.SearchView = new SearchWindow(this);
-            this.SearchView.Show();
+            try
+            {
+                this.SearchView = new SearchWindow(this);
+                this.SearchView.Show();
+            }
+            catch (Exception ex)
+            {
+                HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
         }
 
         /// <summary>
@@ -73,8 +92,21 @@ namespace InvoiceSystem.Controllers
         /// </summary>
         public void Edit()
         {
-            this.EditView = new EditWindow(this);
-            this.EditView.Show();
+            try
+            {
+                this.EditView = new EditWindow(this);
+                this.EditView.Show();
+            }
+            catch (Exception ex)
+            {
+                HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
+        }
+
+        public void HandleError(Exception ex)
+        {
+            MessageBox.Show(ex.ToString());
         }
 
     }

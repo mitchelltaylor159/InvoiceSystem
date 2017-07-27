@@ -115,7 +115,7 @@ namespace InvoiceSystem.Models
 
                 if (this.InvoiceDate == null && this.Status == null)
                 {
-                    throw new Exception("Could not save record: No information provided.");
+                    throw new Exception("Could not save Invoice record: Insufficient information provided.");
                 }
 
                 // Builds a SQL string to save a record with the invoice date (if available, or without it if it's not set) 
@@ -180,5 +180,9 @@ namespace InvoiceSystem.Models
         }
 
 
+        public override string ToString()
+        {
+            return this.InvoiceNumber + ": " + this.InvoiceDate.ToString();
+        }
     }
 }
