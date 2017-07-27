@@ -52,6 +52,7 @@ namespace InvoiceSystem.Controllers
         {
             try
             {
+                // Data is passed between windows through these controllers' data properties:
                 // Initialize controllers
                 this.Invoices = new InvoicesController();
                 this.InvoiceItems = new InvoiceItemsController();
