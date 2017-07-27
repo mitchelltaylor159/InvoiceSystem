@@ -1,8 +1,5 @@
-
-InvoiceSystem/bin/Debug/
-
-\.vs/InvoiceSystem/v15/
-
-InvoiceSystem/obj/Debug/
-
 \.vs/
+InvoiceSystem/obj/
+*.exe
+*.exe.config
+*.pdb
