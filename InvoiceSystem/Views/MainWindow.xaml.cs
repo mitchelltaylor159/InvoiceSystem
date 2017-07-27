@@ -27,19 +27,7 @@ namespace InvoiceSystem.Views
             this.Controller = controller;
         }
 
-        private void btnNewInvoice_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnEditInvoice_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnExit_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+       
+       
     }
 }

@@ -5,65 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InvoiceSystem.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid x:Name="MainMenuStart" Margin="10,0,10,10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+        Title="InvoiceManager" Height="472.078" Width="576.948">
+    <Canvas>
+        <Menu Grid.ColumnSpan="3">
+            <MenuItem Header="Options">
+                <MenuItem Header="Update"></MenuItem>
+                <MenuItem Header="Search"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <ComboBox  Canvas.Left="29" Canvas.Top="56" Width="120" Text="Make Selection">
+            <ComboBoxItem>Create Invoice</ComboBoxItem>
+            <ComboBoxItem>Edit Invoice</ComboBoxItem>
+            <ComboBoxItem>Delete Invoice</ComboBoxItem>
+        </ComboBox>
+        <Canvas x:Name="CreateInvoiceCanvas" Height="100" Canvas.Left="29" Canvas.Top="97" Width="256">
+            <Button Content="Create" Canvas.Left="171" Canvas.Top="70" Width="75"/>
+            <Canvas x:Name="CreateInvoiceCanvas_Copy" Height="100" Canvas.Left="271" Width="256">
+                <Button Content="Delete" Canvas.Left="157" Canvas.Top="42" Width="75"/>
+                <ComboBox Canvas.Left="21" Canvas.Top="40" Width="107"/>
+            </Canvas>
+        </Canvas>
+        <Canvas x:Name="EditInvoiceCanvas" Height="100" Canvas.Left="29" Canvas.Top="197" Width="256">
+            <Button Content="Save" Canvas.Left="171" Canvas.Top="70" Width="75"/>
+        </Canvas>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
 
-        <TextBlock Grid.Column="1"
-                   Grid.Row="0"
-                   VerticalAlignment="Center" 
-                   HorizontalAlignment="Center"
-                   x:Name="Title" 
-                   >            
-                   Tech Invoice Manager
-        </TextBlock>
+    </Canvas>
 
 
-        <Button x:Name="btnNewInvoice" 
-                Grid.Column="1" 
-                Grid.Row="1" 
-                Margin="10" 
-                Click="btnNewInvoice_Click" 
-                Content="Create New Invoice"
-                ToolTip="Creates a new Invoice" FontSize="22" FontFamily="Lucida Sans" FontWeight="Bold"
-                />
 
-        <Button x:Name="btnEditInvoice"
-                Grid.Column="1"
-                Grid.Row="2"
-                Margin="10" 
-                Click="btnEditInvoice_Click"
-                Content="Edit Invoice"
-                ToolTip="Edits an Invoice Currently in Database" FontSize="22" FontFamily="Lucida Sans" FontWeight="Bold"
-                />
-        <Button x:Name="btnDeleteInvoice"
-                Grid.Column="1"
-                Grid.Row="3"
-                Margin="10" 
-                Click="btnEditInvoice_Click"
-                Content="Delete Invoice"
-                ToolTip="Deletes an Invoice Currently in Database" FontSize="22" FontFamily="Lucida Sans" FontWeight="Bold"
-                />
 
-        <Button x:Name="btnExit" 
-                Grid.Column="1" 
-                Grid.Row="4" 
-                Margin="10" 
-                Click="btnExit_Click" 
-                Content="Exit"
-                ToolTip="Exit Program" FontSize="22" FontFamily="Lucida Sans" FontWeight="Bold"
-                />
-    </Grid>
+
 </Window>
