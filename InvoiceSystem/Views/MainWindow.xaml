@@ -10,7 +10,7 @@
         <Menu Grid.ColumnSpan="3">
             <MenuItem Header="Options">
                 <MenuItem Header="Update Items" Click="MenuItem_Click" ToolTip="Updates Items"></MenuItem>
-                <MenuItem Header="Search" Click="MenuItem_Click_1"></MenuItem>
+                <MenuItem Header="Search" Click="MenuItem_Click_1" ToolTip="Searches For invoice"></MenuItem>
             </MenuItem>
         </Menu>
         <Canvas x:Name="CreateInvoiceCanvas" Height="199" Canvas.Left="10" Canvas.Top="55" Width="269">
