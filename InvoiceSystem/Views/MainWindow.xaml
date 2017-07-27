@@ -9,43 +9,50 @@
     <Canvas>
         <Menu Grid.ColumnSpan="3">
             <MenuItem Header="Options">
-                <MenuItem Header="Update"></MenuItem>
-                <MenuItem Header="Search"></MenuItem>
+                <MenuItem Header="Update Items" Click="MenuItem_Click" ToolTip="Updates Items"></MenuItem>
+                <MenuItem Header="Search" Click="MenuItem_Click_1"></MenuItem>
             </MenuItem>
         </Menu>
-        <ComboBox  Canvas.Left="29" Canvas.Top="56" Width="120" Text="Make Selection">
-            <ComboBoxItem>Create Invoice</ComboBoxItem>
-            <ComboBoxItem>Edit Invoice</ComboBoxItem>
-            <ComboBoxItem>Delete Invoice</ComboBoxItem>
-        </ComboBox>
-        <Canvas x:Name="CreateInvoiceCanvas" Height="100" Canvas.Left="29" Canvas.Top="97" Width="256">
+        <Canvas x:Name="CreateInvoiceCanvas" Height="199" Canvas.Left="10" Canvas.Top="55" Width="269">
             <Canvas.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
                     <GradientStop Color="#FFB0A0A0" Offset="1"/>
                 </LinearGradientBrush>
             </Canvas.Background>
-            <Button Content="Create" Canvas.Left="171" Canvas.Top="70" Width="75"/>
-            <Canvas x:Name="CreateInvoiceCanvas_Copy" Height="100" Canvas.Left="271" Width="256">
+            <Button Content="Create" Canvas.Left="184" Canvas.Top="169" Width="75"/>
+            <Canvas x:Name="CreateInvoiceCanvas_Copy" Height="376" Canvas.Left="272" Width="277" Canvas.Top="1">
                 <Canvas.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="Black" Offset="0"/>
                         <GradientStop Color="#FFFF4444" Offset="1"/>
                     </LinearGradientBrush>
                 </Canvas.Background>
-                <Button Content="Delete" Canvas.Left="157" Canvas.Top="42" Width="75"/>
-                <ComboBox Canvas.Left="21" Canvas.Top="40" Width="107"/>
             </Canvas>
+            <DatePicker Canvas.Left="10" Canvas.Top="38" RenderTransformOrigin="0.578,-0.625"/>
+            <TextBox Height="23" Canvas.Left="117" TextWrapping="Wrap" Text="TBD" Canvas.Top="10" Width="120" />
+            <Label Content="Invoice Number" Canvas.Left="10" Canvas.Top="10" Width="102" Height="23" FontWeight="Bold" Foreground="#FFEA0C0C"/>
+            <Label Content="Quantity" Canvas.Left="48" Canvas.Top="76" Width="64" Height="23" FontWeight="Bold" Foreground="#FFEA0C0C" Margin="0" IsTabStop="True" Padding="5,2,5,5"/>
+            <TextBox Height="23" Canvas.Left="117" TextWrapping="Wrap" Text="0" Canvas.Top="76" Width="36" RenderTransformOrigin="0.389,-0.826"/>
+            <TextBox Height="23" Canvas.Left="117" TextWrapping="Wrap" Text="TBD" Canvas.Top="10" Width="120" />
+            <Label Content="Quantity" Canvas.Left="48" Canvas.Top="76" Width="64" Height="23" FontWeight="Bold" Foreground="#FFEA0C0C" Margin="0" IsTabStop="True" Padding="5,2,5,5"/>
         </Canvas>
-        <Canvas x:Name="EditInvoiceCanvas" Height="100" Canvas.Left="29" Canvas.Top="197" Width="256">
+        <Canvas x:Name="EditInvoiceCanvas" Height="172" Canvas.Left="10" Canvas.Top="259" Width="269">
             <Canvas.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
                     <GradientStop Color="#FF25F325" Offset="1"/>
                 </LinearGradientBrush>
             </Canvas.Background>
-            <Button Content="Save" Canvas.Left="171" Canvas.Top="70" Width="75"/>
+            <Button Content="Save" Canvas.Left="184" Canvas.Top="111" Width="75"/>
+            <Label Content="Quantity" Canvas.Left="48" Canvas.Top="33" Width="60" Foreground="#FFF50505" FontWeight="Bold"/>
+            <TextBox Height="23" Canvas.Left="113" TextWrapping="Wrap" Text="0" Canvas.Top="33" Width="26"/>
+            <DatePicker Canvas.Left="37" Canvas.Top="64"/>
         </Canvas>
+        <DataGrid Height="306" Canvas.Left="300" Canvas.Top="74" Width="247"/>
+        <Button Content="Create New Invoice" Canvas.Left="65" Canvas.Top="30" Width="118"/>
+        <Button Content="Edit Invoice" Canvas.Left="235" Canvas.Top="30" Width="75" RenderTransformOrigin="0.84,0.5"/>
+        <Button Content="Delete" Canvas.Left="365" Canvas.Top="30" Width="75"/>
 
 
     </Canvas>
