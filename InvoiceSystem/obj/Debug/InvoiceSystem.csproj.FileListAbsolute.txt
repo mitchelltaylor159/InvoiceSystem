@@ -19,7 +19,6 @@ C:\Users\mitch\documents\visual studio 2017\Projects\InvoiceSystem\InvoiceSystem
 C:\Users\Eric\Source\Repos\InvoiceSystem\InvoiceSystem\bin\Debug\InvoiceSystem.exe.config
 C:\Users\Eric\Source\Repos\InvoiceSystem\InvoiceSystem\bin\Debug\InvoiceSystem.exe
 C:\Users\Eric\Source\Repos\InvoiceSystem\InvoiceSystem\bin\Debug\InvoiceSystem.pdb
-C:\Users\Eric\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\InvoiceSystem.csprojResolveAssemblyReference.cache
 C:\Users\Eric\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\Views\EditWindow.g.cs
 C:\Users\Eric\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\Views\MainWindow.g.cs
 C:\Users\Eric\Source\Repos\InvoiceSystem\InvoiceSystem\obj\Debug\Views\SearchWindow.g.cs
