@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InvoiceSystem.Views"
         mc:Ignorable="d"
-        Title="EditWindow" Height="300" Width="300">
-    <Grid>
-        
+        Title="Edit Items" Height="400" Width="370">
+    <Grid Margin="0,-1,0,1">
+        <Button Content="Save" HorizontalAlignment="Left" Margin="73,324,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Close" HorizontalAlignment="Left" Margin="219,324,0,0" VerticalAlignment="Top" Width="75"/>
+        <ScrollViewer HorizontalAlignment="Left" Height="129" Margin="22,19,0,0" VerticalAlignment="Top" Width="312"/>
+        <DataGrid HorizontalAlignment="Left" Height="129" Margin="22,167,0,0" VerticalAlignment="Top" Width="312"/>
+
     </Grid>
 </Window>
