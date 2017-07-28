@@ -16,6 +16,11 @@ namespace InvoiceSystem.Controllers
         public Invoice ActiveInvoice { get; set; }
 
         /// <summary>
+        /// A list of invoices based on a query from the Invoices property.
+        /// </summary>
+        public IEnumerable<Invoice> SearchedInvoices { get; set; }
+
+        /// <summary>
         /// A list of all invoices from the DB.
         /// </summary>
         public IEnumerable<Invoice> Invoices { get; set; }
@@ -25,7 +30,16 @@ namespace InvoiceSystem.Controllers
         /// </summary>
         public InvoicesController()
         {
-
+            try
+            {
+                LoadInvoices();
+                this.ActiveInvoice = null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
 
@@ -40,6 +54,24 @@ namespace InvoiceSystem.Controllers
             {
                 // Call function from Invoice
                 this.Invoices = Invoice.GetInvoices();
+                ClearSearch();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+        
+        
+        /// <summary>
+         /// Resets the Invoice search.
+         /// </summary>
+        public void ClearSearch()
+        {
+            try
+            {
+                this.SearchedInvoices = this.Invoices.ToList();
             }
             catch (Exception ex)
             {
@@ -49,16 +81,84 @@ namespace InvoiceSystem.Controllers
         }
 
         /// <summary>
-        /// Search the loaded invoices, return a subset.
+        /// Search the loaded invoices by InvoiceNumber, return a subset.
         /// </summary>
-        /// <returns>A subset of all of the loaded invoices that match the given criteria.</returns>
-        public IEnumerable<Invoice> SearchInvoices()
+        /// <param name="invoiceNumber">The InvoiceNumber.</param>
+        public void SearchInvoices(string invoiceNumber)
         {
-            // Add arguments to the method declaration (overload for different search terms)
-            // i.e. SearchInvoices(DateTime invoiceDate)  then another method declaration: SearchInvoices(int InvoiceID)
+            try
+            {
+                this.SearchedInvoices = this.SearchedInvoices.Where(m => m.InvoiceNumber.Equals(invoiceNumber));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
 
-            // Replace with code (LINQ) to search this.Invoices and return.
-            return new List<Invoice>();
+        /// <summary>
+        /// Search the loaded invoices by price, return a subset.
+        /// </summary>
+        /// <param name="totalPrice">The total price of the Invoice.</param>
+        /// <param name="GLE">(Greater than/Less than/Equal to) A string representing an operator (>,>=,=,etc).</param>
+        public void SearchInvoices(decimal totalPrice, string GLE)
+        {
+            try
+            {
+                switch (GLE)
+                {
+                    case ">": this.SearchedInvoices = this.SearchedInvoices.Where(m => m.TotalPrice > totalPrice); break;
+                    case ">=": this.SearchedInvoices = this.SearchedInvoices.Where(m => m.TotalPrice >= totalPrice); break;
+                    case "<=": this.SearchedInvoices = this.SearchedInvoices.Where(m => m.TotalPrice <= totalPrice); break;
+                    case "<": this.SearchedInvoices = this.SearchedInvoices.Where(m => m.TotalPrice < totalPrice); break;
+                    default: this.SearchedInvoices = this.SearchedInvoices.Where(m => m.TotalPrice == totalPrice); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Search the loaded invoices by date, return a subset.
+        /// </summary>
+        /// <param name="date">The Invoice InvoiceDate.</param>
+        /// <param name="GLE">(Greater than/Less than/Equal to) A string representing an operator (>,>=,=,etc).</param>
+        public void SearchInvoices(DateTime date, string GLE)
+        {
+            try
+            {
+                switch (GLE)
+                {
+                    // compare the 20170728120000 format, converted to int. 
+                    case ">": this.SearchedInvoices = this.SearchedInvoices.Where(m => m.InvoiceDate > date); break;
+                    case ">=": this.SearchedInvoices = this.SearchedInvoices.Where(m => m.InvoiceDate >= date); break;
+                    case "<=": this.SearchedInvoices = this.SearchedInvoices.Where(m => m.InvoiceDate <= date); break;
+                    case "<": this.SearchedInvoices = this.SearchedInvoices.Where(m => m.InvoiceDate < date); break;
+                    default: this.SearchedInvoices = this.SearchedInvoices.Where(m => m.InvoiceDate == date); break;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        public void SetActiveInvoice(object invoice)
+        {
+            try
+            {
+                this.ActiveInvoice = (Invoice)invoice;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
 

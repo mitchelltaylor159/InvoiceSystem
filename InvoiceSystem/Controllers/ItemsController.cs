@@ -25,7 +25,16 @@ namespace InvoiceSystem.Controllers
         /// </summary>
         public ItemsController()
         {
-
+            try
+            {
+                LoadItems();
+                this.ActiveItem = null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
 

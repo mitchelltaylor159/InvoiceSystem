@@ -31,6 +31,11 @@ namespace InvoiceSystem.Models
         public int LineNumber { get; set; }
 
         /// <summary>
+        /// The item object associated with this InvoiceItem.
+        /// </summary>
+        public Item LineItem { get; set; }
+
+        /// <summary>
         /// Static access to the Database
         /// </summary>
         public static Database DB = new Database();
@@ -66,7 +71,30 @@ namespace InvoiceSystem.Models
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
-            
+        }
+
+        /// <summary>
+        /// The constructor that takes all of the properties (using Item instead of ItemID) to create an object.
+        /// </summary>
+        /// <param name="invoiceID">The DB Foreign Key for the Invoice.</param>
+        /// <param name="item">An Item object.</param>
+        /// <param name="quantity">The quantity of the item added to an individual invoice.</param>
+        /// <param name="lineNumber">The line number that the item is on.</param>
+        public InvoiceItem(int invoiceID, Item item, int quantity, int lineNumber)
+        {
+            try
+            {
+                this.InvoiceID = invoiceID;
+                this.ItemID = item.ItemID;
+                this.Quantity = quantity;
+                this.LineNumber = lineNumber;
+                this.LineItem = item;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
         // Code for DB queries and statements here...
