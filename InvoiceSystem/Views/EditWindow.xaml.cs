@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,6 +26,35 @@ namespace InvoiceSystem.Views
         {
             InitializeComponent();
             this.Controller = controller;
+        }
+
+        private void btnSaveItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Validate
+                // Get the item
+                // Update the item
+                // Refresh the DataGrid
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
+        }
+
+        private void btnCloseItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
         }
     }
 }

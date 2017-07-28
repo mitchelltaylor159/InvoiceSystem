@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="Edit Items" Height="400" Width="600">
     <Grid Margin="0,-1,0,1">
-        <Button Content="Save" HorizontalAlignment="Left" Margin="201,324,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Close" HorizontalAlignment="Left" Margin="360,324,0,0" VerticalAlignment="Top" Width="75"/>
-        <ScrollViewer HorizontalAlignment="Left" Height="129" Margin="22,19,0,0" VerticalAlignment="Top" Width="541"/>
-        <DataGrid HorizontalAlignment="Left" Height="129" Margin="22,167,0,0" VerticalAlignment="Top" Width="541" CanUserAddRows="False"/>
+        <Button x:Name="btnSaveItem" Content="Save" HorizontalAlignment="Left" Margin="201,324,0,0" VerticalAlignment="Top" Width="75" Click="btnSaveItem_Click"/>
+        <Button x:Name="btnCloseItem" Content="Close" HorizontalAlignment="Left" Margin="360,324,0,0" VerticalAlignment="Top" Width="75" Click="btnCloseItem_Click"/>
+        <ScrollViewer x:Name="svItem" HorizontalAlignment="Left" Height="129" Margin="22,19,0,0" VerticalAlignment="Top" Width="541"/>
+        <DataGrid x:Name="dgItem" HorizontalAlignment="Left" Height="129" Margin="22,167,0,0" VerticalAlignment="Top" Width="541" CanUserAddRows="False"/>
 
     </Grid>
 </Window>
