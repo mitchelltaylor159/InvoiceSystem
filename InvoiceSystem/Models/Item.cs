@@ -120,10 +120,11 @@ namespace InvoiceSystem.Models
                 // Builds a SQL string to save a record
                 string SQL = "INSERT INTO Item " + // INSERT INTO Item
                     "(ItemCode, ItemDescription, ItemPrice) VALUES " + // (ItemCode, ItemDescription, ItemPrice) VALUES
-                    "(\"" + this.ItemCode + "\", " + // ("_____",
-                    "\"" + this.ItemDescription + "\", " + // "_____",
-                    "\"" + this.ItemPrice + "\")"; // "_____")
-                
+                    "('" + this.ItemCode + "', " + // ("_____",
+                    "'" + this.ItemDescription + "', " + // "_____",
+                    "'" + this.ItemPrice.ToString() + "')"; // "_____")
+
+                this.ItemID = DB.ExecuteNonQuery(SQL);
             }
             catch (Exception ex)
             {
@@ -145,9 +146,8 @@ namespace InvoiceSystem.Models
                     ", ItemDescription = \"" + this.ItemDescription + "\"" + // , ItemDescription = "_____"
                     ", ItemPrice = \"" + this.ItemPrice + "\"" + // , ItemPrice = "_____"
                     "\" WHERE ItemID = " + this.ItemID; // WHERE ItemID = _
-                int numRows;
 
-                numRows = DB.ExecuteNonQuery(SQL);
+                DB.ExecuteNonQuery(SQL);
             }
             catch (Exception ex)
             {

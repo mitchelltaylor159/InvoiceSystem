@@ -37,7 +37,24 @@ namespace InvoiceSystem.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Creates a new item object
+        /// </summary>
+        public void CreateItem(int? itemID, string itemCode, string itemDescription, decimal itemPrice)
+        {
+            try
+            {
+                //Creates a new item
+                Item temp = new Item(itemID, itemCode, itemDescription, itemPrice);
+                this.ActiveItem = temp;
+                this.SaveActiveItem();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
 
 
         /// <summary>
