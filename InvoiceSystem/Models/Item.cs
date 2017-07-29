@@ -78,7 +78,7 @@ namespace InvoiceSystem.Models
             try
             {
                 // Set up the variables
-                string SQL = "SELECT * FROM Invoice";
+                string SQL = "SELECT * FROM Item";
                 int numRows = 0;
                 List<Item> itemList = new List<Item>();
 
@@ -89,7 +89,7 @@ namespace InvoiceSystem.Models
                 foreach (DataRow dr in invoiceDS.Tables[0].Rows)
                 {
                     itemList.Add(new Item(Convert.ToInt32(dr["ItemID"].ToString()), dr["ItemCode"].ToString(),
-                        dr["ItemDescription"].ToString(), Decimal.FromOACurrency((long)dr["ItemPrice"]) ) );
+                        dr["ItemDescription"].ToString(), Convert.ToDecimal(dr["ItemPrice"]) ) );
                 }
 
                 return itemList;

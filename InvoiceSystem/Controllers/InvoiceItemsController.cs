@@ -25,7 +25,15 @@ namespace InvoiceSystem.Controllers
         /// </summary>
         public InvoiceItemsController()
         {
-
+            try
+            {
+                this.ActiveInvoiceItem = null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
 
 
