@@ -194,7 +194,7 @@ namespace InvoiceSystem.Models
 
         public override string ToString()
         {
-            return this.InvoiceNumber + " (" + this.InvoiceDate.ToShortDateString() + "): $" + this.TotalPrice;
+            return "Invoice #" + this.InvoiceNumber + " (" + this.InvoiceDate.ToShortDateString() + "): " + this.TotalPrice.ToString("C");
         }
     }
 }
