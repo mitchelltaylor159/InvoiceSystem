@@ -36,8 +36,8 @@ namespace InvoiceSystem.Views
             }
             catch (Exception ex)
             {
-                Controller.HandleError( new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
 
@@ -50,8 +50,8 @@ namespace InvoiceSystem.Views
             catch (Exception ex)
             {
                 //Controller.Handler
-                Controller.HandleError( new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
     }
