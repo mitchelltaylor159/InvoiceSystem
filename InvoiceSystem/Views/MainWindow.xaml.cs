@@ -35,8 +35,25 @@ namespace InvoiceSystem.Views
             CurrentDate.SelectedDate = Controller.Invoices.ActiveInvoice.InvoiceDate;
             SelectedItemCombo.ItemsSource = Controller.Items.Items;
             DataGridList.ItemsSource = Controller.Invoices.ActiveInvoice.ListItems;
-
+            EditInvoiceButton.IsEnabled = true;
         }
+
+        public void ToggleInvoiceOptions(bool enable = true)
+        {
+            InvoiceNumTextBox.IsEnabled = enable;
+            CurrentDate.IsEnabled = enable;
+            AddLineButton.IsEnabled = enable;
+            EditInvoiceButton.IsEnabled = enable;
+            SaveInvoiceButton.IsEnabled = enable;
+            DeleteInvoiceButton.IsEnabled = enable;
+        }
+
+        public void ToggleInvoiceItemOptions(bool enable = true)
+        {
+            DeleteLineButton.IsEnabled = enable;
+            SaveLineButton.IsEnabled = enable;
+        }
+
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             try
