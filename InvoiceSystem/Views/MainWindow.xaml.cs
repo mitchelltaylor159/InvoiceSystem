@@ -50,6 +50,8 @@ namespace InvoiceSystem.Views
 
         public void ToggleInvoiceItemOptions(bool enable = true)
         {
+            SelectedItemCombo.IsEnabled = enable;
+            QuantityBox.IsEnabled = enable;
             DeleteLineButton.IsEnabled = enable;
             SaveLineButton.IsEnabled = enable;
         }

@@ -31,10 +31,10 @@
             <DatePicker x:Name="CurrentDate" Canvas.Left="117" Canvas.Top="61" RenderTransformOrigin="0.578,-0.625" Width="120" IsEnabled="False"/>
             <Label Content="Invoice Number" Canvas.Left="10" Canvas.Top="33" HorizontalContentAlignment="Right" Width="102" Height="23" FontWeight="Bold" Foreground="#FFEA0C0C"/>
             <Label Content="Quantity" Canvas.Left="18" Canvas.Top="253" Width="64" Height="22" FontWeight="Bold" Foreground="#FFEA0C0C" Margin="0" IsTabStop="True" Padding="5,2,5,5" HorizontalContentAlignment="Right"/>
-            <TextBox x:Name="QuantityBox" Height="22" Canvas.Left="87" TextWrapping="Wrap" Text="0" Canvas.Top="253" Width="36" RenderTransformOrigin="0.389,-0.826"/>
+            <TextBox x:Name="QuantityBox" Height="22" Canvas.Left="87" TextWrapping="Wrap" Text="0" Canvas.Top="253" Width="36" RenderTransformOrigin="0.389,-0.826" IsEnabled="False"/>
             <TextBox x:Name="InvoiceNumTextBox" Height="23" Canvas.Left="117" TextWrapping="Wrap" Text="TBD" Canvas.Top="33" Width="120" IsEnabled="False" />
             <Label Content="Select Item" Canvas.Left="10" Canvas.Top="222" OpacityMask="Black" Foreground="Red" FontWeight="Bold" HorizontalContentAlignment="Right"/>
-            <ComboBox x:Name="SelectedItemCombo" Canvas.Left="87" Canvas.Top="225" Width="172"/>
+            <ComboBox x:Name="SelectedItemCombo" Canvas.Left="87" Canvas.Top="225" Width="172" IsEnabled="False"/>
             <Button x:Name="AddLineButton" Content="Add Line" Canvas.Left="12" Canvas.Top="313" Width="75" IsEnabled="False"/>
             <Button x:Name="DeleteLineButton" Content="Delete" Canvas.Left="184" Canvas.Top="313" Width="75" IsEnabled="False"/>
             <Label Content="Invoice Date" Canvas.Left="10" HorizontalContentAlignment="Right" Canvas.Top="62" Width="102" Height="22" FontWeight="Bold" Foreground="#FFEA0C0C"/>
@@ -42,7 +42,7 @@
             <Button x:Name="SaveLineButton" Content="Save Line" Canvas.Left="98" Canvas.Top="313" Width="76" IsEnabled="False"/>
             <Label Content="Quantity" Canvas.Left="18" Canvas.Top="253" Width="64" Height="22" FontWeight="Bold" Foreground="#FFEA0C0C" Margin="0" IsTabStop="True" Padding="5,2,5,5" HorizontalContentAlignment="Right"/>
         </Canvas>
-        <DataGrid x:Name="DataGridList" Height="360" Canvas.Left="288" Canvas.Top="35" Width="355"/>
+        <DataGrid x:Name="DataGridList" Height="360" Canvas.Left="288" Canvas.Top="35" Width="355" SelectionChanged="DataGridList_SelectionChanged"/>
         <Button x:Name="CreateInvoiceButton" Content="Create Invoice" Canvas.Left="33" Canvas.Top="138" Width="105"/>
         <Button x:Name="EditInvoiceButton" Content="Edit Invoice" Canvas.Left="153" Canvas.Top="138" Width="105" RenderTransformOrigin="0.905,0.458" IsEnabled="False"/>
         <Button x:Name="DeleteInvoiceButton" Content="Delete" Canvas.Left="153" Canvas.Top="170" Width="105" IsEnabled="False"/>
