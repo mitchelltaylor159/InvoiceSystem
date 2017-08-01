@@ -63,7 +63,11 @@ namespace InvoiceSystem.Views
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
-
+        /// <summary>
+        /// Changing selected item in combobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DataGridList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
