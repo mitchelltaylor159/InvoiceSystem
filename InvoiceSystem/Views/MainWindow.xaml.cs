@@ -1,4 +1,5 @@
 ﻿using InvoiceSystem.Controllers;
+using InvoiceSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,5 +63,48 @@ namespace InvoiceSystem.Views
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+
+        private void DataGridList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           // try
+           // {
+                //Update the active item in controller
+                Controller.InvoiceItems.ActiveInvoiceItem = (InvoiceItem)DataGridList.SelectedItem;
+            InvoiceNumTextBox.Text = Controller.Invoices.ActiveInvoice.InvoiceNumber;
+
+
+            QuantityBox.Text = Controller.InvoiceItems.ActiveInvoiceItem.Quantity.ToString();
+            
+            SelectedItemCombo.SelectedItem  = Controller.Items.Items.Where(m => m.ItemID == Controller.InvoiceItems.ActiveInvoiceItem.ItemID).Single(); ;
+
+            //  }
+            /*catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }*/
+        }
+
+        /*public void updateInvoiceItemFields()
+        {
+            try
+            {
+                InvoiceNumTextBox.Text = Controller.Invoices.ActiveInvoice.InvoiceNumber;
+
+                
+                QuantityBox.Text = Controller.InvoiceItems.ActiveInvoiceItem.Quantity.ToString();
+                var items = Controller.Items.Items.Where(m => m.ItemID > Controller.InvoiceItems.ActiveInvoiceItem.ItemID);
+                SelectedItemCombo.SelectedItem = items.FirstOrDefault();
+               // DataGridList.ItemsSource = Controller.Invoices.ActiveInvoice.ListItems;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }*/
+
+
+
     }
 }

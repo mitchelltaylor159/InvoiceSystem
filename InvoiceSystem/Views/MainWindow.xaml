@@ -34,14 +34,14 @@
             <TextBox Height="23" Canvas.Left="117" TextWrapping="Wrap" Text="TBD" Canvas.Top="10" Width="120" />
             <Label Content="Invoice Number" Canvas.Left="10" Canvas.Top="10" Width="102" Height="23" FontWeight="Bold" Foreground="#FFEA0C0C"/>
             <Label Content="Quantity" Canvas.Left="65" Canvas.Top="207" Width="64" Height="23" FontWeight="Bold" Foreground="#FFEA0C0C" Margin="0" IsTabStop="True" Padding="5,2,5,5"/>
-            <TextBox Height="23" Canvas.Left="134" TextWrapping="Wrap" Text="0" Canvas.Top="207" Width="36" RenderTransformOrigin="0.389,-0.826"/>
+            <TextBox x:Name="QuantityBox" Height="23" Canvas.Left="134" TextWrapping="Wrap" Text="0" Canvas.Top="207" Width="36" RenderTransformOrigin="0.389,-0.826"/>
             <TextBox x:Name="InvoiceNumTextBox" Height="23" Canvas.Left="117" TextWrapping="Wrap" Text="TBD" Canvas.Top="10" Width="120" />
             <Label Content="Select Item" Canvas.Left="60" Canvas.Top="163" OpacityMask="Black" Foreground="Red" FontWeight="Bold"/>
             <ComboBox x:Name="SelectedItemCombo" Canvas.Left="130" Canvas.Top="163" Width="120"/>
             <Button Content="Add" Canvas.Left="162" Canvas.Top="245" Width="75"/>
             <Button Content="Delete" Canvas.Left="82" Canvas.Top="245" Width="75"/>
         </Canvas>
-        <DataGrid x:Name="DataGridList" Height="306" Canvas.Left="300" Canvas.Top="74" Width="247"/>
+        <DataGrid x:Name="DataGridList" Height="306" Canvas.Left="300" Canvas.Top="74" Width="247" SelectionChanged="DataGridList_SelectionChanged"/>
         <Button Content="Create New Invoice" Canvas.Left="65" Canvas.Top="30" Width="118"/>
         <Button Content="Edit Invoice" Canvas.Left="235" Canvas.Top="30" Width="75" RenderTransformOrigin="0.84,0.5"/>
         <Button Content="Delete" Canvas.Left="365" Canvas.Top="30" Width="75"/>
