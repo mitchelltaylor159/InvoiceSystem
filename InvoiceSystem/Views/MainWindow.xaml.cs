@@ -66,43 +66,53 @@ namespace InvoiceSystem.Views
 
         private void DataGridList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           // try
-           // {
-                //Update the active item in controller
-                Controller.InvoiceItems.ActiveInvoiceItem = (InvoiceItem)DataGridList.SelectedItem;
-            InvoiceNumTextBox.Text = Controller.Invoices.ActiveInvoice.InvoiceNumber;
-
-
-            QuantityBox.Text = Controller.InvoiceItems.ActiveInvoiceItem.Quantity.ToString();
-            
-            SelectedItemCombo.SelectedItem  = Controller.Items.Items.Where(m => m.ItemID == Controller.InvoiceItems.ActiveInvoiceItem.ItemID).Single(); ;
-
-            //  }
-            /*catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }*/
-        }
-
-        /*public void updateInvoiceItemFields()
-        {
             try
             {
-                InvoiceNumTextBox.Text = Controller.Invoices.ActiveInvoice.InvoiceNumber;
-
+                //Update the active item in controller
+                try
+                {
+                    Controller.InvoiceItems.ActiveInvoiceItem = (InvoiceItem)DataGridList.SelectedItem;
+                }
+                catch
+                {
+                    Controller.InvoiceItems.ActiveInvoiceItem = null;
+                }
                 
-                QuantityBox.Text = Controller.InvoiceItems.ActiveInvoiceItem.Quantity.ToString();
-                var items = Controller.Items.Items.Where(m => m.ItemID > Controller.InvoiceItems.ActiveInvoiceItem.ItemID);
-                SelectedItemCombo.SelectedItem = items.FirstOrDefault();
-               // DataGridList.ItemsSource = Controller.Invoices.ActiveInvoice.ListItems;
-            }
+                
+                
+                updateInvoiceItemFields();
+
+              }
             catch (Exception ex)
             {
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
-        }*/
+        }
+
+        public void updateInvoiceItemFields()
+        {
+            try
+            {
+
+                if (Controller.InvoiceItems.ActiveInvoiceItem != null)
+                {
+                    QuantityBox.Text = Controller.InvoiceItems.ActiveInvoiceItem.Quantity.ToString();
+                    SelectedItemCombo.SelectedItem = Controller.Items.Items.Where(m => m.ItemID == Controller.InvoiceItems.ActiveInvoiceItem.ItemID).Single();
+                }
+                else
+                {
+                    QuantityBox.Text = "";
+                    SelectedItemCombo.SelectedIndex = -1;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
 
 
 
