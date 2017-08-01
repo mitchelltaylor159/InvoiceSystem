@@ -24,18 +24,11 @@ namespace InvoiceSystem.Views
         public AppController Controller { get; set; }
         public EditWindow(AppController controller)
         {
-            InitializeComponent();
-            this.Controller = controller;
-        }
-
-        private void btnSaveItem_Click(object sender, RoutedEventArgs e)
-        {
             try
             {
-                // Validate
-                // Get the item
-                // Update the item
-                // Refresh the DataGrid
+                InitializeComponent();
+                this.Controller = controller;
+                dgItem.ItemsSource = Controller.Items.Items;
             }
             catch (Exception ex)
             {
@@ -44,11 +37,82 @@ namespace InvoiceSystem.Views
             }
         }
 
+        /// <summary>
+        /// Clears and re-sets the item databox
+        /// </summary>
+        private void UpdateInvoiceList()
+        {
+            dgItem.ItemsSource = Controller.Items.Items;
+        }
+
+        /// <summary>
+        /// Set Active item
+        /// </summary>
+        private void SetActiveItem()
+        {
+            txtItemCode.Text = Controller.Items.ActiveItem.ItemCode;
+            txtItemDescription.Text = Controller.Items.ActiveItem.ItemDescription;
+            txtItemPrice.Text = Controller.Items.ActiveItem.ItemPrice.ToString();
+        }
+
+        /// <summary>
+        /// Try exception handling of item changes and then save them
+        /// </summary>
+        private void SaveItemChanges()
+        {
+            string itemCode = txtItemCode.Text;
+            string itemDescription = txtItemDescription.Text;
+            decimal.TryParse(txtItemPrice.Text, out decimal itemPrice);
+            Controller.Items.CreateItem(Controller.Items.ActiveItem.ItemID, itemCode, itemDescription, itemPrice);
+        }
+
+        /// <summary>
+        /// Clicking Save will save the text box changes to the active item which will then reflect in database
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSaveItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SaveItemChanges();
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
+        }
+
+        /// <summary>
+        /// Close cancels all and closes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCloseItem_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 this.Close();
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
+        }
+
+        /// <summary>
+        /// When a user chooses a selection item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgItem_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                Controller.Items.ActiveItem = (Models.Item)dgItem.SelectedItem;
+                SetActiveItem();
             }
             catch (Exception ex)
             {

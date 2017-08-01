@@ -63,7 +63,11 @@ namespace InvoiceSystem.Controllers
             try
             {
                 // Call function from InvoiceItem
-                InvoiceItem.GetInvoiceItems(invoice.InvoiceID);
+                this.InvoiceItems = InvoiceItem.GetInvoiceItems(invoice.InvoiceID);
+                /*for(int i = 0; i<this.InvoiceItems.Count(); i++)
+                {
+                    this.InvoiceItems.ElementAt(i).LineItem = 
+                } addd method for*/
             }
             catch (Exception ex)
             {

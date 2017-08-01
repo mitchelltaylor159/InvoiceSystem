@@ -120,13 +120,13 @@ namespace InvoiceSystem.Models
 
                 // Call the DB query
                 DataSet invoiceDS = DB.ExecuteSQLStatement(SQL, ref numRows);
-
+                
                 // Add each item to the list
                 foreach (DataRow dr in invoiceDS.Tables[0].Rows)
                 {
                     itemList.Add(new InvoiceItem(Convert.ToInt32(dr["InvoiceID"].ToString()),
                         Convert.ToInt32(dr["ItemID"].ToString()),
-                        Convert.ToInt32(dr["Quantity"].ToString()),
+                        Convert.ToInt32(dr["ItemQuantity"].ToString()),
                         Convert.ToInt32(dr["LineNumber"].ToString())));
                 }
 
