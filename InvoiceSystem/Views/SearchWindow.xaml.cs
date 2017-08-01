@@ -105,6 +105,9 @@ namespace InvoiceSystem.Views
 
                 // Set the ActiveInvoice
                 Controller.Invoices.SetActiveInvoice(lbxInvoiceList.SelectedItem);
+                Controller.InvoiceItems.LoadInvoiceItems(Controller.Invoices.ActiveInvoice);
+                Controller.Invoices.ActiveInvoice.ListItems = Controller.InvoiceItems.InvoiceItems;
+                Controller.MainView.LoadActiveInvoice();
                 this.Close();
             }
             catch (Exception ex)
