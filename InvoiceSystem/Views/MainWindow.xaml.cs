@@ -35,8 +35,27 @@ namespace InvoiceSystem.Views
             CurrentDate.SelectedDate = Controller.Invoices.ActiveInvoice.InvoiceDate;
             SelectedItemCombo.ItemsSource = Controller.Items.Items;
             DataGridList.ItemsSource = Controller.Invoices.ActiveInvoice.ListItems;
-
+            EditInvoiceButton.IsEnabled = true;
         }
+
+        public void ToggleInvoiceOptions(bool enable = true)
+        {
+            InvoiceNumTextBox.IsEnabled = enable;
+            CurrentDate.IsEnabled = enable;
+            AddLineButton.IsEnabled = enable;
+            EditInvoiceButton.IsEnabled = enable;
+            SaveInvoiceButton.IsEnabled = enable;
+            DeleteInvoiceButton.IsEnabled = enable;
+        }
+
+        public void ToggleInvoiceItemOptions(bool enable = true)
+        {
+            SelectedItemCombo.IsEnabled = enable;
+            QuantityBox.IsEnabled = enable;
+            DeleteLineButton.IsEnabled = enable;
+            SaveLineButton.IsEnabled = enable;
+        }
+
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -63,7 +82,11 @@ namespace InvoiceSystem.Views
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
-
+        /// <summary>
+        /// Changing selected item in combobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DataGridList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -114,7 +137,12 @@ namespace InvoiceSystem.Views
             }
         }
 
-
-
+        private void CreateInvoiceButton_Click(object sender, RoutedEventArgs e)
+        {
+            //SelectedItemCombo.Items.Add = Controller.Items.Items
+            SelectedItemCombo.ItemsSource = Controller.Items.Items;
+            SelectedItemCombo.IsEnabled = true;
+            //need to figure out how to add new item to current invoice 
+        }
     }
 }
