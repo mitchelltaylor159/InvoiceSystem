@@ -40,6 +40,9 @@ namespace InvoiceSystem.Models
         /// </summary>
         public static Database DB = new Database();
 
+        
+        #region Constructors
+
         /// <summary>
         /// The default constructor.
         /// </summary>
@@ -71,9 +74,10 @@ namespace InvoiceSystem.Models
             }
         }
 
+        #endregion
 
 
-        // Code for DB queries and statements here...
+        #region DB Queries
 
         /// <summary>
         /// Queries the DB for ALL invoices, creates a list of Invoice objects, and returns it.
@@ -109,7 +113,9 @@ namespace InvoiceSystem.Models
             }
         }
 
-        
+        /// <summary>
+        /// Saves the current Invoice object in the DB (INSERTs or UPDATEs)
+        /// </summary>
         public void Save()
         {
             try
@@ -136,6 +142,9 @@ namespace InvoiceSystem.Models
                     "(InvoiceDate, TotalPrice)" + // (InvoiceDate, TotalPrice)
                     "VALUES (\"" + this.InvoiceDate.ToString() + "\", " + // VALUES ("____", 
                      this.TotalPrice.ToString() + ")"; // "____")
+                int id = 0;
+                DB.ExecuteNonQuery(SQL, ref id);
+                this.InvoiceID = id;
             }
             catch (Exception ex)
             {
@@ -191,10 +200,24 @@ namespace InvoiceSystem.Models
             }
         }
 
+        #endregion
 
+
+        /// <summary>
+        /// Overrides the ToString() method.
+        /// </summary>
+        /// <returns>Invoice #[InvoiceNumber] ([InvoiceDate]): $[TotalPrice]</returns>
         public override string ToString()
         {
-            return "Invoice #" + this.InvoiceNumber + " (" + this.InvoiceDate.ToShortDateString() + "): " + this.TotalPrice.ToString("C");
+            try
+            {
+                return "Invoice #" + this.InvoiceNumber + " (" + this.InvoiceDate.ToShortDateString() + "): " + this.TotalPrice.ToString("C");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
     }
 }

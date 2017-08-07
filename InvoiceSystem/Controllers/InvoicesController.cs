@@ -83,6 +83,23 @@ namespace InvoiceSystem.Controllers
         /// <summary>
         /// Search the loaded invoices by InvoiceNumber, return a subset.
         /// </summary>
+        /// <param name="invoiceID">The InvoiceID (Primary Key).</param>
+        public void SearchInvoices(int? invoiceID)
+        {
+            try
+            {
+                this.SearchedInvoices = this.SearchedInvoices.Where(m => m.InvoiceID == invoiceID);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Search the loaded invoices by InvoiceNumber, return a subset.
+        /// </summary>
         /// <param name="invoiceNumber">The InvoiceNumber.</param>
         public void SearchInvoices(string invoiceNumber)
         {
@@ -148,11 +165,33 @@ namespace InvoiceSystem.Controllers
             }
         }
 
+        /// <summary>
+        /// Sets the active Invoice based on a selected object.
+        /// </summary>
+        /// <param name="invoice">A selected Invoice (from a ListBox, for example).</param>
         public void SetActiveInvoice(object invoice)
         {
             try
             {
                 this.ActiveInvoice = (Invoice)invoice;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Sets the active Invoice based on the provided InvoiceID.
+        /// </summary>
+        /// <param name="invoiceID">The InvoiceID (Primary Key).</param>
+        public void SetActiveInvoice(int? invoiceID)
+        {
+            try
+            {
+                this.SearchInvoices(invoiceID);
+                this.ActiveInvoice = this.SearchedInvoices.SingleOrDefault();
             }
             catch (Exception ex)
             {
@@ -171,6 +210,9 @@ namespace InvoiceSystem.Controllers
             {
                 // Call function from Item
                 this.ActiveInvoice.Save();
+                int? InvoiceID = this.ActiveInvoice.InvoiceID;
+                this.LoadInvoices();
+                this.SetActiveInvoice(this.Invoices.Where(m => m.InvoiceID == InvoiceID).SingleOrDefault());
             }
             catch (Exception ex)
             {
