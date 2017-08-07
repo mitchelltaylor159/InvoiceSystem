@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace InvoiceSystem.Models
 {
@@ -122,7 +123,7 @@ namespace InvoiceSystem.Models
                     "(ItemCode, ItemDescription, ItemPrice) VALUES " + // (ItemCode, ItemDescription, ItemPrice) VALUES
                     "('" + this.ItemCode + "', " + // ("_____",
                     "'" + this.ItemDescription + "', " + // "_____",
-                    "'" + this.ItemPrice.ToString() + "')"; // "_____")
+                    this.ItemPrice.ToString() + ")"; // "_____")
 
                 this.ItemID = DB.ExecuteNonQuery(SQL);
             }
@@ -142,10 +143,10 @@ namespace InvoiceSystem.Models
             {
                 // Builds a SQL string to update the entry for the current Item object.
                 string SQL = "UPDATE Item " + // UPDATE Item
-                    "SET ItemCode = \"" + this.ItemCode + "\"" + // SET ItemCode = "_____"
-                    ", ItemDescription = \"" + this.ItemDescription + "\"" + // , ItemDescription = "_____"
-                    ", ItemPrice = \"" + this.ItemPrice + "\"" + // , ItemPrice = "_____"
-                    "\" WHERE ItemID = " + this.ItemID; // WHERE ItemID = _
+                    "SET ItemCode = '" + this.ItemCode.ToString() + "', " + // SET ItemCode = "_____"
+                    "ItemDescription = '" + this.ItemDescription + "', " + // , ItemDescription = "_____"
+                    "ItemPrice = " + this.ItemPrice.ToString() + " " + // , ItemPrice = "_____"
+                    "WHERE ItemID = " + this.ItemID; // WHERE ItemID = _
 
                 DB.ExecuteNonQuery(SQL);
             }
@@ -164,13 +165,14 @@ namespace InvoiceSystem.Models
             try
             {
                 // Delete the associated InvoiceItems
-                string SQL = "DELETE FROM InvoiceItem WHERE ItemID = " + this.ItemID;
+                // Do we want to remove from the invoice items and break the invoice?
+                //string SQL = "DELETE FROM InvoiceItem WHERE ItemID = " + this.ItemID;
                 int numRows;
 
-                DB.ExecuteNonQuery(SQL);
+                //DB.ExecuteNonQuery(SQL);
 
                 // Delete the Invoice
-                SQL = "DELETE FROM Item WHERE ItemID = " + this.ItemID;
+                string SQL = "DELETE FROM Item WHERE ItemID = " + this.ItemID;
 
                 numRows = DB.ExecuteNonQuery(SQL);
             }
