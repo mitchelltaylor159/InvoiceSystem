@@ -21,10 +21,6 @@ namespace InvoiceSystem.Views
     /// </summary>
     public partial class EditWindow : Window
     {
-        /// <summary>
-        /// Boolean to tell the window if it's updating a part and to not resent the active item
-        /// </summary>
-        private bool update = false;
 
         /// <summary>
         /// Main controller get and set to allow use of other controllers and models
@@ -99,12 +95,10 @@ namespace InvoiceSystem.Views
         {
             try
             {
-                update = true; //Set update to true to prevent data inconsistency
                 SaveItemChanges(); //Save the item
                 Controller.Items.LoadItems(); //Load the items again with the changes in the database
                 UpdateItemList(); //Updates datagrid
                 ClearTextBoxes(); //Clear text boxes
-                update = false; //Set update to false after data has been reloaded
             }
             catch (Exception ex)
             {
@@ -122,6 +116,7 @@ namespace InvoiceSystem.Views
         {
             try
             {
+                //Close the window
                 this.Close();
             }
             catch (Exception ex)
@@ -140,7 +135,8 @@ namespace InvoiceSystem.Views
         {
             try
             {
-                if (!update)
+                //If the selected index goes back to unselected, don't update the active item
+                if (dgItem.SelectedIndex != -1)
                 {
                     Controller.Items.ActiveItem = (Models.Item)dgItem.SelectedItem;
                     SetActiveItem();
