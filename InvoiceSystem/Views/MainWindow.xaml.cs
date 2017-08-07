@@ -137,7 +137,12 @@ namespace InvoiceSystem.Views
             }
         }
 
-
-
+        private void CreateInvoiceButton_Click(object sender, RoutedEventArgs e)
+        {
+            //SelectedItemCombo.Items.Add = Controller.Items.Items
+            SelectedItemCombo.ItemsSource = Controller.Items.Items;
+            SelectedItemCombo.IsEnabled = true;
+            //need to figure out how to add new item to current invoice 
+        }
     }
 }

@@ -43,7 +43,7 @@
             <Label Content="Quantity" Canvas.Left="18" Canvas.Top="253" Width="64" Height="22" FontWeight="Bold" Foreground="#FFEA0C0C" Margin="0" IsTabStop="True" Padding="5,2,5,5" HorizontalContentAlignment="Right"/>
         </Canvas>
         <DataGrid x:Name="DataGridList" Height="360" Canvas.Left="288" Canvas.Top="35" Width="355" SelectionChanged="DataGridList_SelectionChanged"/>
-        <Button x:Name="CreateInvoiceButton" Content="Create Invoice" Canvas.Left="33" Canvas.Top="138" Width="105"/>
+        <Button x:Name="CreateInvoiceButton" Content="Create Invoice" Canvas.Left="33" Canvas.Top="138" Width="105" Click="CreateInvoiceButton_Click"/>
         <Button x:Name="EditInvoiceButton" Content="Edit Invoice" Canvas.Left="153" Canvas.Top="138" Width="105" RenderTransformOrigin="0.905,0.458" IsEnabled="False"/>
         <Button x:Name="DeleteInvoiceButton" Content="Delete" Canvas.Left="153" Canvas.Top="170" Width="105" IsEnabled="False"/>
         <Button x:Name="SaveInvoiceButton" Content="Save Invoice" Canvas.Left="33" Canvas.Top="170" Width="105" RenderTransformOrigin="0.84,0.5" IsEnabled="False"/>
