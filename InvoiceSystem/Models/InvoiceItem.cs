@@ -41,6 +41,7 @@ namespace InvoiceSystem.Models
         public static Database DB = new Database();
 
 
+        #region Constructors
 
         /// <summary>
         /// The default constructor.
@@ -57,7 +58,7 @@ namespace InvoiceSystem.Models
         /// <param name="itemID">The DB Foreign Key for the Item.</param>
         /// <param name="quantity">The quantity of the item added to an individual invoice.</param>
         /// <param name="lineNumber">The line number that the item is on.</param>
-        public InvoiceItem(int invoiceID, int itemID, int quantity, int lineNumber)
+        public InvoiceItem(int? invoiceID, int? itemID, int quantity, int lineNumber)
         {
             try
             {
@@ -80,7 +81,7 @@ namespace InvoiceSystem.Models
         /// <param name="item">An Item object.</param>
         /// <param name="quantity">The quantity of the item added to an individual invoice.</param>
         /// <param name="lineNumber">The line number that the item is on.</param>
-        public InvoiceItem(int invoiceID, Item item, int quantity, int lineNumber)
+        public InvoiceItem(int? invoiceID, Item item, int quantity, int lineNumber)
         {
             try
             {
@@ -97,7 +98,10 @@ namespace InvoiceSystem.Models
             }
         }
 
-        // Code for DB queries and statements here...
+        #endregion
+
+        
+        #region DB Queries
 
         /// <summary>
         /// Queries the DB for invoiceItems from a specified Invoice, creates a list of InvoiceItem objects, and returns it.
@@ -139,17 +143,13 @@ namespace InvoiceSystem.Models
             }
         }
 
-
+        /// <summary>
+        /// Saves the InvoiceItem in the DB.
+        /// </summary>
         public void Save()
         {
             try
             {
-                if (this.ItemID != null)
-                {
-                    Update();
-                    return;
-                }
-
                 if (this.InvoiceID == null || this.ItemID== null)
                 {
                     throw new Exception("Could not save InvoiceItem record: Insufficient information provided.");
@@ -157,12 +157,13 @@ namespace InvoiceSystem.Models
 
                 // Builds a SQL string to save a record
                 string SQL = "INSERT INTO InvoiceItem " + // INSERT INTO InvoiceItem
-                    "(InvoiceID, ItemID, Quantity, LineNumber) VALUES " + // (InvoiceID, ItemID, Quantity, LineNumber) VALUES
+                    "(InvoiceID, ItemID, ItemQuantity, LineNumber) VALUES " + // (InvoiceID, ItemID, ItemQuantity, LineNumber) VALUES
                     "(\"" + this.InvoiceID + "\", " + // ("_____",
                     "\"" + this.ItemID+ "\", " + // "_____",
                     "\"" + this.Quantity + "\", " + // "_____",
                     "\"" + this.LineNumber + "\")"; // "_____")
 
+                int numRows = DB.ExecuteNonQuery(SQL);
             }
             catch (Exception ex)
             {
@@ -182,7 +183,7 @@ namespace InvoiceSystem.Models
                 string SQL = "UPDATE InvoiceItem " + // UPDATE InvoiceItem
                     "SET InvoiceID = \"" + this.InvoiceID + "\", " + // SET InvoiceID = "_____",
                     "ItemID = \"" + this.ItemID + "\", " + // ItemID = "_____",
-                    "Quantity = \"" + this.Quantity + "\", " + // Quantity = "_____",
+                    "ItemQuantity = \"" + this.Quantity + "\", " + // ItemQuantity = "_____",
                     "LineNumber = \"" + this.LineNumber + "\" " + // LineNumber = "_____"
                     "WHERE ItemID = " + this.ItemID + " " + // WHERE ItemID = _
                     "AND InvoiceID = " + this.InvoiceID; // AND InvoiceID = _
@@ -217,9 +218,23 @@ namespace InvoiceSystem.Models
             }
         }
 
+        #endregion
+
+        /// <summary>
+        /// Overrides the ToString() method.
+        /// </summary>
+        /// <returns>LineNumber: Quantity</returns>
         public override string ToString()
         {
-            return this.LineNumber + ": " + this.Quantity;
+            try
+            {
+                return this.LineNumber + ": " + this.Quantity;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
     }
 }

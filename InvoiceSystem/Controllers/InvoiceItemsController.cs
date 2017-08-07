@@ -18,7 +18,7 @@ namespace InvoiceSystem.Controllers
         /// <summary>
         /// A list of all InvoiceItems from the DB.
         /// </summary>
-        public IEnumerable<InvoiceItem> InvoiceItems { get; set; }
+        public List<InvoiceItem> InvoiceItems { get; set; }
 
         /// <summary>
         /// The default constructor.
@@ -113,14 +113,81 @@ namespace InvoiceSystem.Controllers
         }
 
         /// <summary>
-        /// Deletes the active InvoiceItem object from the DB.
+        /// Deletes the active InvoiceItem object from the InvoiceItems List.
         /// </summary>
         public void DeleteActiveItem()
         {
             try
             {
                 // Call function from Item
-                this.ActiveInvoiceItem.Delete();
+                // this.ActiveInvoiceItem.Delete();
+                ((List<InvoiceItem>)this.InvoiceItems).Remove(this.ActiveInvoiceItem);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Saves/Updates all InvoiceItems in the current list.
+        /// </summary>
+        public void SaveInvoiceItems()
+        {
+            try
+            {
+                string SQL = "DELETE FROM InvoiceItem WHERE InvoiceID = " + this.ActiveInvoiceItem.InvoiceID;
+                InvoiceItem.DB.ExecuteNonQuery(SQL);
+
+                for (int i = 0; i < this.InvoiceItems.Count(); i++)
+                {
+                    this.InvoiceItems.ElementAt(i).Save();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Deletes all InvoiceItem records from the DB for the activeInvoice. Saves all InvoiceItems in the current list.
+        /// </summary>
+        /// <param name="ActiveInvoice">The active (selected) invoice.</param>
+        public void SaveInvoiceItems(Invoice activeInvoice)
+        {
+            try
+            {
+                string SQL = "DELETE FROM InvoiceItem WHERE InvoiceID = " + activeInvoice.InvoiceID;
+                InvoiceItem.DB.ExecuteNonQuery(SQL);
+
+                for (int i = 0; i < this.InvoiceItems.Count(); i++)
+                {
+                    this.InvoiceItems.ElementAt(i).InvoiceID = activeInvoice.InvoiceID;
+                    this.InvoiceItems.ElementAt(i).Save();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Adds a new InvoiceItem to the current list of InvoiceItems.
+        /// </summary>
+        /// <param name="activeInvoice">The active (selected) Invoice.</param>
+        /// <param name="activeItem">The active (selected) Item.</param>
+        /// <param name="quantity">The quantity of the Item to add.</param>
+        public void AddInvoiceItem(Invoice activeInvoice, Item activeItem, int quantity)
+        {
+            try
+            {
+                this.ActiveInvoiceItem = new InvoiceItem(activeInvoice.InvoiceID, activeItem.ItemID, quantity, InvoiceItems.Count() + 1);
+                ((this.InvoiceItems)).Add(this.ActiveInvoiceItem);
             }
             catch (Exception ex)
             {
