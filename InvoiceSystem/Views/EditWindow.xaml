@@ -13,7 +13,7 @@
         <DataGrid x:Name="dgItem" HorizontalAlignment="Left" Height="152" Margin="23,10,0,0" VerticalAlignment="Top" Width="404" CanUserAddRows="False" SelectionChanged="dgItem_SelectionChanged"/>
         <TextBox x:Name="txtItemCode"  HorizontalAlignment="Left" Height="23" Margin="210,185,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
         <TextBox x:Name="txtItemDescription" HorizontalAlignment="Left" Height="23" Margin="210,231,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
-        <TextBox x:Name="txtItemPrice" HorizontalAlignment="Left" Height="23" Margin="210,275,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160"/>
+        <TextBox x:Name="txtItemPrice" HorizontalAlignment="Left" Height="23" Margin="210,275,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="160" PreviewKeyDown="txtItemPriceInput_PreviewKeyDown"/>
         <Label x:Name="lblItemCode" Content="Item Code:" HorizontalAlignment="Left" Margin="128,182,0,0" VerticalAlignment="Top" Width="73"/>
         <Label x:Name="lblItemDescription" Content="Description:" HorizontalAlignment="Left" Margin="121,231,0,0" VerticalAlignment="Top" Width="73"/>
         <Label x:Name="lblItemPrice" Content="Price:" HorizontalAlignment="Left" Margin="151,275,0,0" VerticalAlignment="Top" Width="43" RenderTransformOrigin="1.331,0.51"/>
