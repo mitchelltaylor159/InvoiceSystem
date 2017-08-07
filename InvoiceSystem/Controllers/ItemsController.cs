@@ -75,6 +75,24 @@ namespace InvoiceSystem.Controllers
         }
 
         /// <summary>
+        /// Searches all items by itemID and returns 1.
+        /// </summary>
+        /// <param name="itemID">The ItemID to search for.</param>
+        /// <returns>A reference to the matching Item object.</returns>
+        public Item SearchSingle(int? itemID)
+        {
+            try
+            {
+                return this.Items.Where(m => m.ItemID == itemID).SingleOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Saves the active Item object to the DB.
         /// </summary>
         public void SaveActiveItem()

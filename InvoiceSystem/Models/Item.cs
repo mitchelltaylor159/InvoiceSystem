@@ -36,6 +36,7 @@ namespace InvoiceSystem.Models
         /// </summary>
         public static Database DB = new Database();
 
+        #region Constructors
         /// <summary>
         /// The default constructor.
         /// </summary>
@@ -67,8 +68,11 @@ namespace InvoiceSystem.Models
             }
             
         }
-        
-        // Code for DB queries and statements here...
+
+        #endregion
+
+
+        #region DB Queries
 
         /// <summary>
         /// Queries the DB for ALL items, creates a list of Items objects, and returns it.
@@ -102,7 +106,9 @@ namespace InvoiceSystem.Models
             }
         }
 
-
+        /// <summary>
+        /// Saves the Item in the Database (INSERTs or UPDATEs).
+        /// </summary>
         public void Save()
         {
             try
@@ -124,8 +130,9 @@ namespace InvoiceSystem.Models
                     "('" + this.ItemCode + "', " + // ("_____",
                     "'" + this.ItemDescription + "', " + // "_____",
                     this.ItemPrice.ToString() + ")"; // "_____")
-
-                this.ItemID = DB.ExecuteNonQuery(SQL);
+                int id = 0;
+                DB.ExecuteNonQuery(SQL, ref id);
+                this.ItemID = id;
             }
             catch (Exception ex)
             {
@@ -167,9 +174,14 @@ namespace InvoiceSystem.Models
                 // Delete the associated InvoiceItems
                 // Do we want to remove from the invoice items and break the invoice?
                 //string SQL = "DELETE FROM InvoiceItem WHERE ItemID = " + this.ItemID;
-                int numRows;
+                int numRows = 0;
+                string SQLSelect = "SELECT COUNT(*) FROM InvoiceItem WHERE ItemID = " + this.ItemID;
+                string result = DB.ExecuteScalarSQL(SQLSelect);
 
-                //DB.ExecuteNonQuery(SQL);
+                if (Convert.ToInt32(result) > 0)
+                {
+                    throw new Exception("Cannot delete item: '" + this.ToString() + "'. It is contained on " + result + " invoice lines.");
+                }
 
                 // Delete the Invoice
                 string SQL = "DELETE FROM Item WHERE ItemID = " + this.ItemID;
@@ -183,6 +195,7 @@ namespace InvoiceSystem.Models
             }
         }
 
+        #endregion
 
         /// <summary>
         /// ToString() Override Method
@@ -190,7 +203,15 @@ namespace InvoiceSystem.Models
         /// <returns>ItemCode: ItemDescription</returns>
         override public string ToString()
         {
-            return this.ItemCode + ": " + this.ItemDescription;
+            try
+            {
+                return this.ItemCode + ": " + this.ItemDescription;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
         }
     }
 }
