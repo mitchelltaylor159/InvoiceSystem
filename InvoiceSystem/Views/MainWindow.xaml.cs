@@ -26,8 +26,16 @@ namespace InvoiceSystem.Views
         {
             InitializeComponent();
             this.Controller = controller;
+            
         }
+        public void LoadActiveInvoice()
+        {
+            InvoiceNumTextBox.Text = Controller.Invoices.ActiveInvoice.InvoiceNumber;
+            CurrentDate.SelectedDate = Controller.Invoices.ActiveInvoice.InvoiceDate;
+            SelectedItemCombo.ItemsSource = Controller.Items.Items;
+            DataGridList.ItemsSource = Controller.Invoices.ActiveInvoice.ListItems;
 
+        }
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             try
