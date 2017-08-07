@@ -153,5 +153,44 @@ namespace InvoiceSystem.Models
                 throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
             }
         }
+
+        /// <summary>
+        /// This method takes an SQL statement that is a non query and executes it.
+        /// </summary>
+        /// <param name="sSQL">The SQL statement to be executed.</param>
+        /// <returns>Returns the number of rows affected by the SQL statement.</returns>
+        public int ExecuteNonQuery(string sSQL, ref int ID)
+        {
+            try
+            {
+                //Number of rows affected
+                int iNumRows;
+
+                using (OleDbConnection conn = new OleDbConnection(sConnectionString))
+                {
+                    //Open the connection to the database
+                    conn.Open();
+
+                    //Add the information for the SelectCommand using the SQL statement and the connection object
+                    OleDbCommand cmd = new OleDbCommand(sSQL, conn);
+                    cmd.CommandTimeout = 0;
+
+                    //Execute the non query SQL statement
+                    iNumRows = cmd.ExecuteNonQuery();
+
+                    cmd = new OleDbCommand("Select @@IDENTITY", conn);
+                    cmd.CommandTimeout = 0;
+                    ID = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+
+                //return the number of rows affected
+                return iNumRows;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." + MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+            }
+        }
+
     }
 }
