@@ -29,87 +29,72 @@ namespace InvoiceSystem.Views
             this.Controller = controller;
             
         }
+
         public void LoadActiveInvoice()
         {
-            InvoiceNumTextBox.Text = Controller.Invoices.ActiveInvoice.InvoiceNumber;
-            CurrentDate.SelectedDate = Controller.Invoices.ActiveInvoice.InvoiceDate;
-            SelectedItemCombo.ItemsSource = Controller.Items.Items;
-            DataGridList.ItemsSource = Controller.Invoices.ActiveInvoice.ListItems;
-            EditInvoiceButton.IsEnabled = true;
+
+            try
+            {
+                if (Controller.Invoices.ActiveInvoice.InvoiceNumber != null)
+                {
+                    InvoiceNumTextBox.Text = Controller.Invoices.ActiveInvoice.InvoiceNumber;
+                }
+                else
+                {
+                    InvoiceNumTextBox.Text = "TBD";
+                }
+                if (Controller.Invoices.ActiveInvoice.InvoiceDate != null && Controller.Invoices.ActiveInvoice.InvoiceDate > new DateTime(0))
+                {
+                    CurrentDate.SelectedDate = Controller.Invoices.ActiveInvoice.InvoiceDate;
+                }
+                SelectedItemCombo.ItemsSource = Controller.Items.Items;
+
+                for (int i = 0; i < Controller.InvoiceItems.InvoiceItems.Count(); i++ )
+                {
+                    Controller.InvoiceItems.InvoiceItems.ElementAt(i).LineItem = Controller.Items.SearchSingle(Controller.InvoiceItems.InvoiceItems.ElementAt(i).ItemID);
+                }
+                DataGridList.ItemsSource = Controller.InvoiceItems.InvoiceItems;
+                ToggleInvoiceItemOptions(false);
+                ToggleInvoiceOptions(false);
+                EditInvoiceButton.IsEnabled = true;
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
         }
 
         public void ToggleInvoiceOptions(bool enable = true)
         {
-            InvoiceNumTextBox.IsEnabled = enable;
-            CurrentDate.IsEnabled = enable;
-            AddLineButton.IsEnabled = enable;
-            EditInvoiceButton.IsEnabled = enable;
-            SaveInvoiceButton.IsEnabled = enable;
-            DeleteInvoiceButton.IsEnabled = enable;
+            try
+            {
+                CurrentDate.IsEnabled = enable;
+                AddLineButton.IsEnabled = enable;
+                EditInvoiceButton.IsEnabled = enable;
+                SaveInvoiceButton.IsEnabled = enable;
+                DeleteInvoiceButton.IsEnabled = enable;
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
         }
 
         public void ToggleInvoiceItemOptions(bool enable = true)
         {
-            SelectedItemCombo.IsEnabled = enable;
-            QuantityBox.IsEnabled = enable;
-            DeleteLineButton.IsEnabled = enable;
-            SaveLineButton.IsEnabled = enable;
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
             try
             {
-                Controller.Edit();
+                SelectedItemCombo.IsEnabled = enable;
+                QuantityBox.IsEnabled = enable;
+                DeleteLineButton.IsEnabled = enable;
+                UpdateLineButton.IsEnabled = enable;
             }
             catch (Exception ex)
             {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                Controller.Search();
-            }
-            catch (Exception ex)
-            {
-                //Controller.Handler
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
-            }
-        }
-        /// <summary>
-        /// Changing selected item in combobox
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DataGridList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                //Update the active item in controller
-                try
-                {
-                    Controller.InvoiceItems.ActiveInvoiceItem = (InvoiceItem)DataGridList.SelectedItem;
-                }
-                catch
-                {
-                    Controller.InvoiceItems.ActiveInvoiceItem = null;
-                }
-                
-                
-                
-                updateInvoiceItemFields();
-
-              }
-            catch (Exception ex)
-            {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
 
@@ -129,20 +114,186 @@ namespace InvoiceSystem.Views
                     SelectedItemCombo.SelectedIndex = -1;
                 }
             }
-
             catch (Exception ex)
             {
-                throw new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
-                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message);
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Controller.Edit();
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
+        }
+
+        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Controller.Search();
+            }
+            catch (Exception ex)
+            {
+                //Controller.Handler
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
 
         private void CreateInvoiceButton_Click(object sender, RoutedEventArgs e)
         {
-            //SelectedItemCombo.Items.Add = Controller.Items.Items
-            SelectedItemCombo.ItemsSource = Controller.Items.Items;
-            SelectedItemCombo.IsEnabled = true;
-            //need to figure out how to add new item to current invoice 
+            try
+            {
+                Controller.Invoices.ActiveInvoice = new Invoice();
+                Controller.InvoiceItems.LoadInvoiceItems(Controller.Invoices.ActiveInvoice);
+                LoadActiveInvoice();
+                ToggleInvoiceOptions();
+                ToggleInvoiceItemOptions();
+                //need to figure out how to add new item to current invoice 
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
+        }
+
+        private void EditInvoiceButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                ToggleInvoiceOptions();
+                ToggleInvoiceItemOptions();
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
+        }
+
+        private void SaveInvoiceButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Controller.Invoices.ActiveInvoice.InvoiceDate = (DateTime)CurrentDate.SelectedDate;
+                Controller.Invoices.ActiveInvoice.ListItems = Controller.InvoiceItems.InvoiceItems;
+                Controller.Invoices.ActiveInvoice.Save();
+                Controller.InvoiceItems.SaveInvoiceItems(Controller.Invoices.ActiveInvoice);
+                Controller.Invoices.LoadInvoices();
+                Controller.Invoices.SetActiveInvoice(Controller.Invoices.ActiveInvoice.InvoiceID);
+                LoadActiveInvoice();
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
+        }
+
+        private void DeleteInvoiceButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Controller.Invoices.ActiveInvoice.Delete();
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
+        }
+
+        /// <summary>
+        /// Changing selected item in combobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DataGridList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                //Update the active item in controller
+                try
+                {
+                    Controller.InvoiceItems.ActiveInvoiceItem = (InvoiceItem)DataGridList.SelectedItem;
+                }
+                catch
+                {
+                    Controller.InvoiceItems.ActiveInvoiceItem = null;
+                }
+                updateInvoiceItemFields();
+
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
+        }
+
+        private void SelectedItemCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Controller.Items.ActiveItem = (Item)((ComboBox)sender).SelectedItem;
+        }
+
+        private void AddLineButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (SelectedItemCombo.SelectedItem != null && QuantityBox.Text != "")
+                {
+                    int quantity = Convert.ToInt32(QuantityBox.Text);
+                    Controller.InvoiceItems.AddInvoiceItem(Controller.Invoices.ActiveInvoice, Controller.Items.ActiveItem, quantity);
+                    Controller.InvoiceItems.ActiveInvoiceItem.LineItem = Controller.Items.SearchSingle(Controller.Items.ActiveItem.ItemID);
+                    DataGridList.Items.Refresh();
+                }
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
+        }
+
+        private void UpdateLineButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int quantity = Convert.ToInt32(QuantityBox.Text);
+                Controller.InvoiceItems.ActiveInvoiceItem.Quantity = quantity;
+                Controller.InvoiceItems.ActiveInvoiceItem.ItemID = Controller.Items.ActiveItem.ItemID;
+                Controller.InvoiceItems.ActiveInvoiceItem.LineItem = Controller.Items.SearchSingle(Controller.Items.ActiveItem.ItemID);
+                DataGridList.Items.Refresh();
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
+        }
+
+        private void DeleteLineButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Controller.InvoiceItems.InvoiceItems.Remove(Controller.InvoiceItems.ActiveInvoiceItem);
+                Controller.InvoiceItems.ActiveInvoiceItem = null;
+                DataGridList.Items.Refresh();
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
         }
     }
 }
