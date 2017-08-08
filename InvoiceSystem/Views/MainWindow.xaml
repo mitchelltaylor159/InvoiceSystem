@@ -35,7 +35,7 @@
             <TextBox x:Name="InvoiceNumTextBox" Height="23" Canvas.Left="117" TextWrapping="Wrap" Text="TBD" Canvas.Top="33" Width="120" IsEnabled="False" />
             <Label Content="Select Item" Canvas.Left="10" Canvas.Top="222" OpacityMask="Black" Foreground="Red" FontWeight="Bold" HorizontalContentAlignment="Right"/>
             <ComboBox x:Name="SelectedItemCombo" Canvas.Left="87" Canvas.Top="225" Width="172" IsEnabled="False" SelectionChanged="SelectedItemCombo_SelectionChanged"/>
-            <Button x:Name="AddLineButton" Content="Add Line" Canvas.Left="12" Canvas.Top="313" Width="75" IsEnabled="False" Click="AddLineButton_Click"/>
+            <Button x:Name="AddLineButton" Content="Add" Canvas.Left="12" Canvas.Top="313" Width="75" IsEnabled="False" Click="AddLineButton_Click"/>
             <Button x:Name="DeleteLineButton" Content="Delete" Canvas.Left="184" Canvas.Top="313" Width="75" IsEnabled="False" Click="DeleteLineButton_Click"/>
             <Label Content="Invoice Date" Canvas.Left="10" HorizontalContentAlignment="Right" Canvas.Top="62" Width="102" Height="22" FontWeight="Bold" Foreground="#FFEA0C0C"/>
             <Rectangle Fill="White" Height="2" Canvas.Left="10" Stroke="White" Canvas.Top="196" Width="249"/>
