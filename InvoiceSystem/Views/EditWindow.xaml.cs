@@ -148,5 +148,31 @@ namespace InvoiceSystem.Views
                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
+
+        /// <summary>
+        /// Only allows numbers and decimal to be input
+        /// </summary>
+        /// <param name="sender">sent object</param>
+        /// <param name="e">key argument</param>
+        private void txtItemPriceInput_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                //If key is Alpha then don't let it be entered
+                if (e.Key >= Key.A && e.Key <= Key.Z || e.Key == Key.OemComma)
+                {
+                    //If key is not a period, delete, or back key then don't input
+                    if (e.Key != Key.OemPeriod || e.Key != Key.Delete || e.Key != Key.Back)
+                    {
+                        e.Handled = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
+        }
     }
 }
