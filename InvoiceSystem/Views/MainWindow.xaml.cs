@@ -27,6 +27,8 @@ namespace InvoiceSystem.Views
         {
             InitializeComponent();
             this.Controller = controller;
+            WarnLabel.Visibility = Visibility.Hidden;
+            WarnDeleteLabel.Visibility = Visibility.Hidden;
             
         }
 
@@ -98,6 +100,7 @@ namespace InvoiceSystem.Views
             }
         }
 
+    
         public void updateInvoiceItemFields()
         {
             try
@@ -251,6 +254,8 @@ namespace InvoiceSystem.Views
             {
                 if (SelectedItemCombo.SelectedItem != null && QuantityBox.Text != "")
                 {
+                    WarnLabel.Visibility = Visibility.Hidden;
+                    WarnDeleteLabel.Visibility = Visibility.Hidden;
                     int quantity = Convert.ToInt32(QuantityBox.Text);
                     Controller.InvoiceItems.AddInvoiceItem(Controller.Invoices.ActiveInvoice, Controller.Items.ActiveItem, quantity);
                     Controller.InvoiceItems.ActiveInvoiceItem.LineItem = Controller.Items.SearchSingle(Controller.Items.ActiveItem.ItemID);
@@ -268,11 +273,27 @@ namespace InvoiceSystem.Views
         {
             try
             {
-                int quantity = Convert.ToInt32(QuantityBox.Text);
-                Controller.InvoiceItems.ActiveInvoiceItem.Quantity = quantity;
-                Controller.InvoiceItems.ActiveInvoiceItem.ItemID = Controller.Items.ActiveItem.ItemID;
-                Controller.InvoiceItems.ActiveInvoiceItem.LineItem = Controller.Items.SearchSingle(Controller.Items.ActiveItem.ItemID);
-                DataGridList.Items.Refresh();
+                if (DataGridList.Items.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (SelectedItemCombo.SelectedItem == null || QuantityBox.Text == "")
+                    {
+                        WarnLabel.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        WarnLabel.Visibility = Visibility.Hidden;
+                        WarnDeleteLabel.Visibility = Visibility.Hidden;
+                        int quantity = Convert.ToInt32(QuantityBox.Text);
+                        Controller.InvoiceItems.ActiveInvoiceItem.Quantity = quantity;
+                        Controller.InvoiceItems.ActiveInvoiceItem.ItemID = Controller.Items.ActiveItem.ItemID;
+                        Controller.InvoiceItems.ActiveInvoiceItem.LineItem = Controller.Items.SearchSingle(Controller.Items.ActiveItem.ItemID);
+                        DataGridList.Items.Refresh();
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -285,9 +306,19 @@ namespace InvoiceSystem.Views
         {
             try
             {
-                Controller.InvoiceItems.InvoiceItems.Remove(Controller.InvoiceItems.ActiveInvoiceItem);
-                Controller.InvoiceItems.ActiveInvoiceItem = null;
-                DataGridList.Items.Refresh();
+                if(DataGridList.SelectedIndex != -1)
+                {
+                    WarnDeleteLabel.Visibility = Visibility.Hidden;
+                    Controller.InvoiceItems.InvoiceItems.Remove(Controller.InvoiceItems.ActiveInvoiceItem);
+                    Controller.InvoiceItems.ActiveInvoiceItem = null;
+                    DataGridList.Items.Refresh();
+
+                }
+                else
+                {
+                    WarnDeleteLabel.Visibility = Visibility.Visible;
+                }
+
             }
             catch (Exception ex)
             {
