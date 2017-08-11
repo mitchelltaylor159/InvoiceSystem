@@ -29,7 +29,8 @@ namespace InvoiceSystem.Views
             this.Controller = controller;
             WarnLabel.Visibility = Visibility.Hidden;
             WarnDeleteLabel.Visibility = Visibility.Hidden;
-            
+            DateWarningLabel.Visibility = Visibility.Hidden;
+
         }
 
         public void LoadActiveInvoice()
@@ -187,13 +188,21 @@ namespace InvoiceSystem.Views
         {
             try
             {
-                Controller.Invoices.ActiveInvoice.InvoiceDate = (DateTime)CurrentDate.SelectedDate;
-                Controller.Invoices.ActiveInvoice.ListItems = Controller.InvoiceItems.InvoiceItems;
-                Controller.Invoices.ActiveInvoice.Save();
-                Controller.InvoiceItems.SaveInvoiceItems(Controller.Invoices.ActiveInvoice);
-                Controller.Invoices.LoadInvoices();
-                Controller.Invoices.SetActiveInvoice(Controller.Invoices.ActiveInvoice.InvoiceID);
-                LoadActiveInvoice();
+                if (CurrentDate.SelectedDate == null)
+                {
+                    DateWarningLabel.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    DateWarningLabel.Visibility = Visibility.Hidden;
+                    Controller.Invoices.ActiveInvoice.InvoiceDate = (DateTime)CurrentDate.SelectedDate;
+                    Controller.Invoices.ActiveInvoice.ListItems = Controller.InvoiceItems.InvoiceItems;
+                    Controller.Invoices.ActiveInvoice.Save();
+                    Controller.InvoiceItems.SaveInvoiceItems(Controller.Invoices.ActiveInvoice);
+                    Controller.Invoices.LoadInvoices();
+                    Controller.Invoices.SetActiveInvoice(Controller.Invoices.ActiveInvoice.InvoiceID);
+                    LoadActiveInvoice();
+                }
             }
             catch (Exception ex)
             {
