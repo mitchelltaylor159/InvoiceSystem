@@ -230,6 +230,9 @@ namespace InvoiceSystem.Controllers
             {
                 // Call function from Item
                 this.ActiveInvoice.Update();
+                int? InvoiceID = this.ActiveInvoice.InvoiceID;
+                this.LoadInvoices();
+                this.SetActiveInvoice(this.Invoices.Where(m => m.InvoiceID == InvoiceID).SingleOrDefault());
             }
             catch (Exception ex)
             {
@@ -247,6 +250,8 @@ namespace InvoiceSystem.Controllers
             {
                 // Call function from Invoice
                 this.ActiveInvoice.Delete();
+                this.ActiveInvoice = null;
+                this.LoadInvoices();
             }
             catch (Exception ex)
             {
