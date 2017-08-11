@@ -36,6 +36,7 @@ namespace InvoiceSystem.Views
             DateWarningLabel.Visibility = Visibility.Hidden;
 
         }
+
         /// <summary>
         /// Loads the Invoice Selected into the MainWindow and populates the datagrid, combobox, date, Invoice number
         /// </summary>
@@ -44,23 +45,32 @@ namespace InvoiceSystem.Views
 
             try
             {
-                if (Controller.Invoices.ActiveInvoice.InvoiceNumber != null)
+                if (Controller.Invoices.ActiveInvoice == null)
                 {
-                    InvoiceNumTextBox.Text = Controller.Invoices.ActiveInvoice.InvoiceNumber;
+                    InvoiceNumTextBox.Text = "TBD";
+                    CurrentDate.SelectedDate = null;
+                    Controller.InvoiceItems.InvoiceItems = null;
                 }
                 else
                 {
-                    InvoiceNumTextBox.Text = "TBD";
-                }
-                if (Controller.Invoices.ActiveInvoice.InvoiceDate != null && Controller.Invoices.ActiveInvoice.InvoiceDate > new DateTime(0))
-                {
-                    CurrentDate.SelectedDate = Controller.Invoices.ActiveInvoice.InvoiceDate;
-                }
-                SelectedItemCombo.ItemsSource = Controller.Items.Items;
+                    if (Controller.Invoices.ActiveInvoice.InvoiceNumber != null)
+                    {
+                        InvoiceNumTextBox.Text = Controller.Invoices.ActiveInvoice.InvoiceNumber;
+                    }
+                    else
+                    {
+                        InvoiceNumTextBox.Text = "TBD";
+                    }
+                    if (Controller.Invoices.ActiveInvoice.InvoiceDate != null && Controller.Invoices.ActiveInvoice.InvoiceDate > new DateTime(0))
+                    {
+                        CurrentDate.SelectedDate = Controller.Invoices.ActiveInvoice.InvoiceDate;
+                    }
+                    SelectedItemCombo.ItemsSource = Controller.Items.Items;
 
-                for (int i = 0; i < Controller.InvoiceItems.InvoiceItems.Count(); i++ )
-                {
-                    Controller.InvoiceItems.InvoiceItems.ElementAt(i).LineItem = Controller.Items.SearchSingle(Controller.InvoiceItems.InvoiceItems.ElementAt(i).ItemID);
+                    for (int i = 0; i < Controller.InvoiceItems.InvoiceItems.Count(); i++)
+                    {
+                        Controller.InvoiceItems.InvoiceItems.ElementAt(i).LineItem = Controller.Items.SearchSingle(Controller.InvoiceItems.InvoiceItems.ElementAt(i).ItemID);
+                    }
                 }
                 DataGridList.ItemsSource = Controller.InvoiceItems.InvoiceItems;
                 ToggleInvoiceItemOptions(false);
@@ -73,10 +83,11 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
+
         /// <summary>
         /// Enables all the buttons on the mainwindow
         /// </summary>
-        /// <param name="enable"></param>
+        /// <param name="enable">Whether to enable (true) or disable (false) the options.</param>
         public void ToggleInvoiceOptions(bool enable = true)
         {
             try
@@ -93,10 +104,11 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
+
         /// <summary>
         /// Enables or dissables buttons so that they cannot be pressed
         /// </summary>
-        /// <param name="enable"></param>
+        /// <param name="enable">Whether to enable (true) or disable (false) the options.</param>
         public void ToggleInvoiceItemOptions(bool enable = true)
         {
             try
@@ -138,6 +150,7 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
+
         /// <summary>
         /// Opens the edit items page for adding items or deleting
         /// </summary>
@@ -249,7 +262,8 @@ namespace InvoiceSystem.Views
         {
             try
             {
-                Controller.Invoices.ActiveInvoice.Delete();
+                Controller.Invoices.DeleteActiveInvoice();
+                LoadActiveInvoice();
             }
             catch (Exception ex)
             {
