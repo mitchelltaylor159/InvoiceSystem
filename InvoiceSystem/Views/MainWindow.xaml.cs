@@ -257,9 +257,22 @@ namespace InvoiceSystem.Views
                     WarnLabel.Visibility = Visibility.Hidden;
                     WarnDeleteLabel.Visibility = Visibility.Hidden;
                     int quantity = Convert.ToInt32(QuantityBox.Text);
-                    Controller.InvoiceItems.AddInvoiceItem(Controller.Invoices.ActiveInvoice, Controller.Items.ActiveItem, quantity);
-                    Controller.InvoiceItems.ActiveInvoiceItem.LineItem = Controller.Items.SearchSingle(Controller.Items.ActiveItem.ItemID);
-                    DataGridList.Items.Refresh();
+                    bool exists = false;
+                    for (int i = 0; i < Controller.InvoiceItems.InvoiceItems.Count(); i++)
+                    {
+                        if (Controller.InvoiceItems.InvoiceItems.ElementAt(i).ItemID == Controller.Items.ActiveItem.ItemID)
+                        {
+                            Controller.InvoiceItems.InvoiceItems.ElementAt(i).Quantity = quantity;
+                            DataGridList.Items.Refresh();
+                            exists = true;
+                        }
+                    }
+                    if (!exists)
+                    {
+                        Controller.InvoiceItems.AddInvoiceItem(Controller.Invoices.ActiveInvoice, Controller.Items.ActiveItem, quantity);
+                        Controller.InvoiceItems.ActiveInvoiceItem.LineItem = Controller.Items.SearchSingle(Controller.Items.ActiveItem.ItemID);
+                        DataGridList.Items.Refresh();
+                    }
                 }
             }
             catch (Exception ex)
