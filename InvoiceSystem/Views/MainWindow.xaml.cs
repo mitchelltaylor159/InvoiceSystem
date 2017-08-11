@@ -23,6 +23,10 @@ namespace InvoiceSystem.Views
     public partial class MainWindow : Window
     {
         public AppController Controller { get; set; }
+        /// <summary>
+        /// Sets initial conditions for the main window
+        /// </summary>
+        /// <param name="controller"></param>
         public MainWindow(AppController controller)
         {
             InitializeComponent();
@@ -32,7 +36,9 @@ namespace InvoiceSystem.Views
             DateWarningLabel.Visibility = Visibility.Hidden;
 
         }
-
+        /// <summary>
+        /// Loads the Invoice Selected into the MainWindow and populates the datagrid, combobox, date, Invoice number
+        /// </summary>
         public void LoadActiveInvoice()
         {
 
@@ -67,7 +73,10 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
-
+        /// <summary>
+        /// Enables all the buttons on the mainwindow
+        /// </summary>
+        /// <param name="enable"></param>
         public void ToggleInvoiceOptions(bool enable = true)
         {
             try
@@ -84,7 +93,10 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
-
+        /// <summary>
+        /// Enables or dissables buttons so that they cannot be pressed
+        /// </summary>
+        /// <param name="enable"></param>
         public void ToggleInvoiceItemOptions(bool enable = true)
         {
             try
@@ -101,7 +113,9 @@ namespace InvoiceSystem.Views
             }
         }
 
-    
+        /// <summary>
+        /// Updates the Quantity Textbox  and ComboBox 
+        /// </summary>
         public void updateInvoiceItemFields()
         {
             try
@@ -124,7 +138,11 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
-
+        /// <summary>
+        /// Opens the edit items page for adding items or deleting
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -137,7 +155,11 @@ namespace InvoiceSystem.Views
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
-
+        /// <summary>
+        /// Opens the search page for finding invoices
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             try
@@ -151,7 +173,11 @@ namespace InvoiceSystem.Views
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
-
+        /// <summary>
+        /// Creates a new Invoice if there is not one loaded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CreateInvoiceButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -183,7 +209,11 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
-
+        /// <summary>
+        /// Saved the current invoice with everything currently in the DataGrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveInvoiceButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -210,7 +240,11 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
-
+        /// <summary>
+        /// Deletes the current invoice
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteInvoiceButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -256,7 +290,11 @@ namespace InvoiceSystem.Views
         {
             Controller.Items.ActiveItem = (Item)((ComboBox)sender).SelectedItem;
         }
-
+        /// <summary>
+        /// Adds a new item to the datagrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddLineButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -290,7 +328,11 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
-
+        /// <summary>
+        /// Updates the quantity of a particular item if it already exists
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateLineButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -323,7 +365,11 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
-
+        /// <summary>
+        /// Deletes the line currently selected in the DataGrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteLineButton_Click(object sender, RoutedEventArgs e)
         {
             try
