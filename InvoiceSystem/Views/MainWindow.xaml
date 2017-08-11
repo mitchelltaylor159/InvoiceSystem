@@ -41,6 +41,9 @@
             <Rectangle Fill="White" Height="2" Canvas.Left="10" Stroke="White" Canvas.Top="196" Width="249"/>
             <Button x:Name="UpdateLineButton" Content="Update Line" Canvas.Left="98" Canvas.Top="313" Width="76" IsEnabled="False" Click="UpdateLineButton_Click"/>
             <Label Content="Quantity" Canvas.Left="18" Canvas.Top="253" Width="64" Height="22" FontWeight="Bold" Foreground="#FFEA0C0C" Margin="0" IsTabStop="True" Padding="5,2,5,5" HorizontalContentAlignment="Right"/>
+            <Label x:Name="WarnLabel" Content="Choose Item and Quantity" Canvas.Left="47" Canvas.Top="280" Width="190" FontWeight="Bold" Foreground="#FF591818"/>
+            <Label x:Name="WarnDeleteLabel" Content="No Item To Delete" Canvas.Left="47" Canvas.Top="340" Width="190" FontWeight="Bold" Foreground="#FF591818"/>
+            <Label x:Name="DateWarningLabel" Content="Dont Forget The Date" Canvas.Left="47" Canvas.Top="84" Width="135" FontWeight="Bold" Foreground="#FF591818"/>
         </Canvas>
         <DataGrid x:Name="DataGridList" Height="360" Canvas.Left="288" Canvas.Top="35" Width="355" SelectionChanged="DataGridList_SelectionChanged" IsReadOnly="True"/>
         <Button x:Name="CreateInvoiceButton" Content="Create Invoice" Canvas.Left="33" Canvas.Top="138" Width="105" Click="CreateInvoiceButton_Click"/>

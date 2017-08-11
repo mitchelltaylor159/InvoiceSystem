@@ -23,13 +23,22 @@ namespace InvoiceSystem.Views
     public partial class MainWindow : Window
     {
         public AppController Controller { get; set; }
+        /// <summary>
+        /// Sets initial conditions for the main window
+        /// </summary>
+        /// <param name="controller"></param>
         public MainWindow(AppController controller)
         {
             InitializeComponent();
             this.Controller = controller;
-            
-        }
+            WarnLabel.Visibility = Visibility.Hidden;
+            WarnDeleteLabel.Visibility = Visibility.Hidden;
+            DateWarningLabel.Visibility = Visibility.Hidden;
 
+        }
+        /// <summary>
+        /// Loads the Invoice Selected into the MainWindow and populates the datagrid, combobox, date, Invoice number
+        /// </summary>
         public void LoadActiveInvoice()
         {
 
@@ -64,7 +73,10 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
-
+        /// <summary>
+        /// Enables all the buttons on the mainwindow
+        /// </summary>
+        /// <param name="enable"></param>
         public void ToggleInvoiceOptions(bool enable = true)
         {
             try
@@ -81,7 +93,10 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
-
+        /// <summary>
+        /// Enables or dissables buttons so that they cannot be pressed
+        /// </summary>
+        /// <param name="enable"></param>
         public void ToggleInvoiceItemOptions(bool enable = true)
         {
             try
@@ -98,6 +113,9 @@ namespace InvoiceSystem.Views
             }
         }
 
+        /// <summary>
+        /// Updates the Quantity Textbox  and ComboBox 
+        /// </summary>
         public void updateInvoiceItemFields()
         {
             try
@@ -120,7 +138,11 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
-
+        /// <summary>
+        /// Opens the edit items page for adding items or deleting
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -133,7 +155,11 @@ namespace InvoiceSystem.Views
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
-
+        /// <summary>
+        /// Opens the search page for finding invoices
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             try
@@ -147,7 +173,11 @@ namespace InvoiceSystem.Views
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
-
+        /// <summary>
+        /// Creates a new Invoice if there is not one loaded
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CreateInvoiceButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -179,18 +209,30 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
-
+        /// <summary>
+        /// Saved the current invoice with everything currently in the DataGrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SaveInvoiceButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                Controller.Invoices.ActiveInvoice.InvoiceDate = (DateTime)CurrentDate.SelectedDate;
-                Controller.Invoices.ActiveInvoice.ListItems = Controller.InvoiceItems.InvoiceItems;
-                Controller.Invoices.ActiveInvoice.Save();
-                Controller.InvoiceItems.SaveInvoiceItems(Controller.Invoices.ActiveInvoice);
-                Controller.Invoices.LoadInvoices();
-                Controller.Invoices.SetActiveInvoice(Controller.Invoices.ActiveInvoice.InvoiceID);
-                LoadActiveInvoice();
+                if (CurrentDate.SelectedDate == null)
+                {
+                    DateWarningLabel.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    DateWarningLabel.Visibility = Visibility.Hidden;
+                    Controller.Invoices.ActiveInvoice.InvoiceDate = (DateTime)CurrentDate.SelectedDate;
+                    Controller.Invoices.ActiveInvoice.ListItems = Controller.InvoiceItems.InvoiceItems;
+                    Controller.Invoices.ActiveInvoice.Save();
+                    Controller.InvoiceItems.SaveInvoiceItems(Controller.Invoices.ActiveInvoice);
+                    Controller.Invoices.LoadInvoices();
+                    Controller.Invoices.SetActiveInvoice(Controller.Invoices.ActiveInvoice.InvoiceID);
+                    LoadActiveInvoice();
+                }
             }
             catch (Exception ex)
             {
@@ -198,7 +240,11 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
-
+        /// <summary>
+        /// Deletes the current invoice
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteInvoiceButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -244,17 +290,36 @@ namespace InvoiceSystem.Views
         {
             Controller.Items.ActiveItem = (Item)((ComboBox)sender).SelectedItem;
         }
-
+        /// <summary>
+        /// Adds a new item to the datagrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddLineButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 if (SelectedItemCombo.SelectedItem != null && QuantityBox.Text != "")
                 {
+                    WarnLabel.Visibility = Visibility.Hidden;
+                    WarnDeleteLabel.Visibility = Visibility.Hidden;
                     int quantity = Convert.ToInt32(QuantityBox.Text);
-                    Controller.InvoiceItems.AddInvoiceItem(Controller.Invoices.ActiveInvoice, Controller.Items.ActiveItem, quantity);
-                    Controller.InvoiceItems.ActiveInvoiceItem.LineItem = Controller.Items.SearchSingle(Controller.Items.ActiveItem.ItemID);
-                    DataGridList.Items.Refresh();
+                    bool exists = false;
+                    for (int i = 0; i < Controller.InvoiceItems.InvoiceItems.Count(); i++)
+                    {
+                        if (Controller.InvoiceItems.InvoiceItems.ElementAt(i).ItemID == Controller.Items.ActiveItem.ItemID)
+                        {
+                            Controller.InvoiceItems.InvoiceItems.ElementAt(i).Quantity = quantity;
+                            DataGridList.Items.Refresh();
+                            exists = true;
+                        }
+                    }
+                    if (!exists)
+                    {
+                        Controller.InvoiceItems.AddInvoiceItem(Controller.Invoices.ActiveInvoice, Controller.Items.ActiveItem, quantity);
+                        Controller.InvoiceItems.ActiveInvoiceItem.LineItem = Controller.Items.SearchSingle(Controller.Items.ActiveItem.ItemID);
+                        DataGridList.Items.Refresh();
+                    }
                 }
             }
             catch (Exception ex)
@@ -263,16 +328,36 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
-
+        /// <summary>
+        /// Updates the quantity of a particular item if it already exists
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateLineButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                int quantity = Convert.ToInt32(QuantityBox.Text);
-                Controller.InvoiceItems.ActiveInvoiceItem.Quantity = quantity;
-                Controller.InvoiceItems.ActiveInvoiceItem.ItemID = Controller.Items.ActiveItem.ItemID;
-                Controller.InvoiceItems.ActiveInvoiceItem.LineItem = Controller.Items.SearchSingle(Controller.Items.ActiveItem.ItemID);
-                DataGridList.Items.Refresh();
+                if (DataGridList.Items.Count == 0)
+                {
+
+                }
+                else
+                {
+                    if (SelectedItemCombo.SelectedItem == null || QuantityBox.Text == "")
+                    {
+                        WarnLabel.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        WarnLabel.Visibility = Visibility.Hidden;
+                        WarnDeleteLabel.Visibility = Visibility.Hidden;
+                        int quantity = Convert.ToInt32(QuantityBox.Text);
+                        Controller.InvoiceItems.ActiveInvoiceItem.Quantity = quantity;
+                        Controller.InvoiceItems.ActiveInvoiceItem.ItemID = Controller.Items.ActiveItem.ItemID;
+                        Controller.InvoiceItems.ActiveInvoiceItem.LineItem = Controller.Items.SearchSingle(Controller.Items.ActiveItem.ItemID);
+                        DataGridList.Items.Refresh();
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -280,14 +365,28 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
-
+        /// <summary>
+        /// Deletes the line currently selected in the DataGrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteLineButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                Controller.InvoiceItems.InvoiceItems.Remove(Controller.InvoiceItems.ActiveInvoiceItem);
-                Controller.InvoiceItems.ActiveInvoiceItem = null;
-                DataGridList.Items.Refresh();
+                if(DataGridList.SelectedIndex != -1)
+                {
+                    WarnDeleteLabel.Visibility = Visibility.Hidden;
+                    Controller.InvoiceItems.InvoiceItems.Remove(Controller.InvoiceItems.ActiveInvoiceItem);
+                    Controller.InvoiceItems.ActiveInvoiceItem = null;
+                    DataGridList.Items.Refresh();
+
+                }
+                else
+                {
+                    WarnDeleteLabel.Visibility = Visibility.Visible;
+                }
+
             }
             catch (Exception ex)
             {
