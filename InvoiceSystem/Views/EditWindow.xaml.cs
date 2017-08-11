@@ -28,6 +28,11 @@ namespace InvoiceSystem.Views
         public AppController Controller { get; set; }
 
         /// <summary>
+        /// A flag whether to edit/save changes or to add a new item.
+        /// </summary>
+        public bool Edit { get; set; }
+
+        /// <summary>
         /// Edit Window initialization
         /// </summary>
         /// <param name="controller"></param>
@@ -53,6 +58,12 @@ namespace InvoiceSystem.Views
         {
             dgItem.SelectedIndex = -1; //Unselects DataGrid
             dgItem.ItemsSource = Controller.Items.Items; //Update the DataGrid
+            
+            // Update the ComboBox on the Main page
+            Controller.MainView.SelectedItemCombo.ItemsSource = Controller.Items.Items;
+            Controller.MainView.SelectedItemCombo.Items.Refresh();
+
+            this.Edit = false;
         }
 
         /// <summary>
@@ -73,7 +84,12 @@ namespace InvoiceSystem.Views
             string itemCode = txtItemCode.Text;
             string itemDescription = txtItemDescription.Text;
             decimal.TryParse(txtItemPrice.Text, out decimal itemPrice);
-            Controller.Items.CreateItem(Controller.Items.ActiveItem.ItemID, itemCode, itemDescription, itemPrice);
+            int? id = null;
+            if (this.Edit)
+            {
+                id = Controller.Items.ActiveItem.ItemID;
+            }
+            Controller.Items.CreateItem(id, itemCode, itemDescription, itemPrice);
         }
 
         /// <summary>
@@ -167,6 +183,20 @@ namespace InvoiceSystem.Views
                         e.Handled = true;
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
+        }
+
+        private void btnNewItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                dgItem.SelectedIndex = -1;
+                ClearTextBoxes();
             }
             catch (Exception ex)
             {
