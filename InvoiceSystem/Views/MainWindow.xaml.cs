@@ -23,10 +23,11 @@ namespace InvoiceSystem.Views
     public partial class MainWindow : Window
     {
         public AppController Controller { get; set; }
+
         /// <summary>
         /// Sets initial conditions for the main window
         /// </summary>
-        /// <param name="controller"></param>
+        /// <param name="controller">The main app controller.</param>
         public MainWindow(AppController controller)
         {
             InitializeComponent();
@@ -168,6 +169,7 @@ namespace InvoiceSystem.Views
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
+
         /// <summary>
         /// Opens the search page for finding invoices
         /// </summary>
@@ -186,6 +188,7 @@ namespace InvoiceSystem.Views
                                     MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
+
         /// <summary>
         /// Creates a new Invoice if there is not one loaded
         /// </summary>
@@ -209,6 +212,11 @@ namespace InvoiceSystem.Views
             }
         }
 
+        /// <summary>
+        /// Enables input fields.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void EditInvoiceButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -222,6 +230,7 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
+
         /// <summary>
         /// Saved the current invoice with everything currently in the DataGrid
         /// </summary>
@@ -253,6 +262,7 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
+
         /// <summary>
         /// Deletes the current invoice
         /// </summary>
@@ -300,10 +310,24 @@ namespace InvoiceSystem.Views
             }
         }
 
+        /// <summary>
+        /// Updates the ActiveItem.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SelectedItemCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Controller.Items.ActiveItem = (Item)((ComboBox)sender).SelectedItem;
+            try
+            {
+                Controller.Items.ActiveItem = (Item)((ComboBox)sender).SelectedItem;
+            }
+            catch (Exception ex)
+            {
+                Controller.HandleError(new Exception(MethodInfo.GetCurrentMethod().DeclaringType.Name + "." +
+                                   MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
+            }
         }
+
         /// <summary>
         /// Adds a new item to the datagrid
         /// </summary>
@@ -342,6 +366,7 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
+
         /// <summary>
         /// Updates the quantity of a particular item if it already exists
         /// </summary>
@@ -379,6 +404,7 @@ namespace InvoiceSystem.Views
                                    MethodInfo.GetCurrentMethod().Name + " -> " + ex.Message));
             }
         }
+
         /// <summary>
         /// Deletes the line currently selected in the DataGrid
         /// </summary>
