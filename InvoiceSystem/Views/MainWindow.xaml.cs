@@ -309,7 +309,7 @@ namespace InvoiceSystem.Views
                     {
                         if (Controller.InvoiceItems.InvoiceItems.ElementAt(i).ItemID == Controller.Items.ActiveItem.ItemID)
                         {
-                            Controller.InvoiceItems.InvoiceItems.ElementAt(i).Quantity = quantity;
+                            Controller.InvoiceItems.InvoiceItems.ElementAt(i).Quantity += quantity;
                             DataGridList.Items.Refresh();
                             exists = true;
                         }
