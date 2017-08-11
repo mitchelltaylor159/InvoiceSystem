@@ -35,7 +35,7 @@ namespace InvoiceSystem.Views
         /// <summary>
         /// Edit Window initialization
         /// </summary>
-        /// <param name="controller"></param>
+        /// <param name="controller">The main app controller.</param>
         public EditWindow(AppController controller)
         {
             try
@@ -52,7 +52,7 @@ namespace InvoiceSystem.Views
         }
 
         /// <summary>
-        /// Clears and re-sets the item databox
+        /// Clears and re-sets the item databox; Enables adding new items.
         /// </summary>
         private void UpdateItemList()
         {
@@ -191,6 +191,11 @@ namespace InvoiceSystem.Views
             }
         }
 
+        /// <summary>
+        /// Clears the input fields and allows a new Item to be added.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnNewItem_Click(object sender, RoutedEventArgs e)
         {
             try
